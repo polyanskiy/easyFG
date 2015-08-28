@@ -19,7 +19,7 @@ InstallDirRegKey HKLM "Software\easyFG" "" ;if previous installation exists (ove
 !define MUI_ABORTWARNING
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_BITMAP "${NSISDIR}\Contrib\Graphics\Header\win.bmp"
-!define EASYFG_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\easyFG"
+;!define EASYFG_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\easyFG"
 ;!define EASYFG_ROOT_KEY "Applications\easyFG.exe"
 
 ;Installer pages
@@ -119,28 +119,10 @@ Section "Section_01" Sec01
   ;WriteRegStr HKLM "Software\easyFG" "" $INSTDIR
   WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\easyFG.exe" "" "$INSTDIR\easyFG.exe"
   WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\easyFG.exe" "Path" "$INSTDIR\"
-  
-  
-  ;WriteRegStr HKCR "Applications\easyFG.exe\SupportedTypes" ".asc" ""
-  ;WriteRegStr HKCR "Applications\easyFG.exe\SupportedTypes" ".sif" ""
-  ;WriteRegStr HKCR "Applications\easyFG.exe\SupportedTypes" ".tif" ""
-  ;WriteRegStr HKCR "Applications\easyFG.exe\SupportedTypes" ".tiff" ""
-  ;WriteRegStr HKCR "Applications\easyFG.exe\SupportedTypes" ".raw" ""
-  ;WriteRegStr HKCR "Applications\easyFG.exe\DefaultIcon" "" "$INSTDIR\easyFG.exe"
-  
-  ;WriteRegStr HKCR "Applications\easyFG.exe\shell\open" "FriendlyAppName" "easyFG"
+  WriteRegStr HKCR "Applications\easyFG.exe\shell\open" "FriendlyAppName" "easyFG"
   WriteRegStr HKCR "Applications\easyFG.exe\shell\open\command" "" "$\"$INSTDIR\easyFG.exe$\" $\"%1$\"" ; "%1" without quotes: 8.3 name format
   
-  
-  
   ;Register extensions
-  
-  ;WriteRegStr HKCR ".asc\OpenWithList\easyFG.exe" "" ""
-  ;WriteRegStr HKCR ".sif\OpenWithList\easyFG.exe" "" ""
-  ;WriteRegStr HKCR ".tif\OpenWithList\easyFG.exe" "" ""
-  ;WriteRegStr HKCR ".tiff\OpenWithList\easyFG.exe" "" ""
-  ;WriteRegStr HKCR ".raw\OpenWithList\easyFG.exe" "" ""
-  
   WriteRegStr HKCR ".asc\OpenWithProgIds" "easyFG.asc" ""
   WriteRegStr HKCR ".sif\OpenWithProgIds" "easyFG.sif" ""
   WriteRegStr HKCR ".tif\OpenWithProgIds" "easyFG.tif" ""
@@ -174,8 +156,7 @@ Section "Uninstall"
 
   ;DeleteRegKey HKLM "Software\easyFG"
   DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\easyFG.exe"
-  DeleteRegKey HKCR "Applications\easyFG.exe"
-  
+  DeleteRegKey HKCR "Applications\easyFG.exe" 
   DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\easyFG"
   
   ;unregister extensions
@@ -184,6 +165,5 @@ Section "Uninstall"
   DeleteRegKey HKCR ".tif\OpenWithProgIds\easyFG.tif"
   DeleteRegKey HKCR ".tiff\OpenWithProgIds\easyFG.tiff"
   DeleteRegKey HKCR ".raw\OpenWithProgIds\easyFG.raw"
-  DeleteRegKey HKCR "easyFG"
 
 SectionEnd
