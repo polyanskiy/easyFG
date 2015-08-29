@@ -7,7 +7,7 @@
 ;General
 SetCompressor lzma
 Name "easyFG"
-OutFile "easyFG_20150827.exe"
+OutFile "easyFG_20150828.exe"
 
 ;Default install path
 InstallDir "$PROGRAMFILES\easyFG"          ;default
@@ -19,8 +19,6 @@ InstallDirRegKey HKLM "Software\easyFG" "" ;if previous installation exists (ove
 !define MUI_ABORTWARNING
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_BITMAP "${NSISDIR}\Contrib\Graphics\Header\win.bmp"
-;!define EASYFG_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\easyFG"
-;!define EASYFG_ROOT_KEY "Applications\easyFG.exe"
 
 ;Installer pages
 !insertmacro MUI_PAGE_WELCOME
@@ -156,8 +154,8 @@ Section "Uninstall"
 
   ;DeleteRegKey HKLM "Software\easyFG"
   DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\easyFG.exe"
-  DeleteRegKey HKCR "Applications\easyFG.exe" 
   DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\easyFG"
+  DeleteRegKey HKCR "Applications\easyFG.exe" 
   
   ;unregister extensions
   DeleteRegKey HKCR ".asc\OpenWithProgIds\easyFG.asc"
