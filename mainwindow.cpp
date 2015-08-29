@@ -6,7 +6,7 @@ MainWindow::MainWindow( QWidget * parent)
 {
     setupUi(this);
 
-    version = "2012-03-20";
+    version = "2015-08-28";
 
     inimage = false;
     x1drag = false;
