@@ -63,7 +63,7 @@ void MainWindow::on_saveButton_clicked()
 
     QFileInfo fi;
     if(QFile::exists(savefile))
-        fi.setFile(savefileinfo.dir(), savefileinfo.baseName());
+        fi.setFile(savefileinfo.dir(), datafileinfo.baseName());
     else
         fi.setFile(datafileinfo.dir(), datafileinfo.baseName());
 
