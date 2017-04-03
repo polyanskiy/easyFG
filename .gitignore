@@ -4,6 +4,7 @@ Makefile*
 *.Debug
 *.Release
 moc_*.cpp
+moc_*.h
 qrc_*.cpp
 ui_*.h
 easyFG*.exe
