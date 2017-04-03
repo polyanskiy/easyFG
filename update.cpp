@@ -17,14 +17,14 @@ void MainWindow::UpdateImage()
 	for(j=0; j<dataheight; j++)
 	{
 	    if(referenceComboBox->currentIndex()>0 && refloaded)
-		pixel = (int)((CorrectedArray[i][j]-offset)*255.0/(cutoff-offset)+0.5);
+            pixel = (int)((CorrectedArray[i][j]-offset)*255.0/(cutoff-offset)+0.5);
 	    else
-		pixel = (int)((DataArray[i][j]-offset)*255.0/(cutoff-offset)+0.5);
+            pixel = (int)((DataArray[i][j]-offset)*255.0/(cutoff-offset)+0.5);
 
 	    if(pixel>255)
-		pixel = 255;
+            pixel = 255;
 	    if(pixel<0)
-		pixel = 0;
+            pixel = 0;
 
 	    image.setPixel(i, j, pixel);
 	}

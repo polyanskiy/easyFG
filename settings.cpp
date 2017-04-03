@@ -7,7 +7,7 @@ void MainWindow::SaveSession()
 
     settings.setValue("datafile", datafile);
     settings.setValue("reffile", reffile);
-    settings.setValue("imagefile", imagefile);
+    settings.setValue("savefile", savefile);
     settings.setValue("scale", scaleComboBox->currentIndex());
     settings.setValue("offset", offsetSpinBox->value());
     settings.setValue("cutoff", cutoffSpinBox->value());
@@ -56,7 +56,7 @@ void MainWindow::RestoreSession()
     // Saved settings
     restoreGeometry(settings.value("window_geometry").toByteArray());
     reffile = settings.value("reffile", QString()).toString();
-    imagefile = settings.value("imagefile", QString()).toString();
+    savefile = settings.value("savefile", QString()).toString();
     scaleComboBox->setCurrentIndex(settings.value("scale", 0).toInt());
     offsetSpinBox->setValue(settings.value("offset", 0).toInt());
     cutoffSpinBox->setValue(settings.value("cutoff", 0).toInt());

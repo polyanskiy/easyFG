@@ -1,7 +1,7 @@
 # -------------------------------------------------
 # Project created by QtCreator 2009-10-21T12:47:05
 # -------------------------------------------------
-TARGET = easyFG
+TARGET = easyfg
 TEMPLATE = app
 SOURCES += main.cpp \
     mainwindow.cpp \
@@ -15,7 +15,8 @@ SOURCES += main.cpp \
     shortcuts.cpp \
     memory.cpp \
     settings.cpp \
-    analysis.cpp
+    analysis.cpp \
+    save.cpp
 HEADERS += easyfg.h
 FORMS += mainwindow.ui
 RESOURCES += icon.qrc

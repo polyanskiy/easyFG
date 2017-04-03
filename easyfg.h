@@ -56,7 +56,7 @@ private:
     QGraphicsLineItem *x1line, *x2line, *y1line, *y2line, *centerAline, *centerBline;
     QGraphicsEllipseItem *ellipse;
     QGraphicsPathItem *xprojection, *yprojection;
-    QString reffile, imagefile;
+    QString reffile, savefile;
     bool flag_fullscreen;
     int **DataArray, **RefArray, **CorrectedArray;
     float *X, *Y;
@@ -78,6 +78,7 @@ private:
     void LoadSif(QString, int**, int*, int*);
     void LoadTiff(QString, int**, int*, int*);
     void LoadRaw(QString, int**, int*, int*);
+    void SaveAscii(QString, int**);
     void CalculateCorrectedArray();
     void CalculateX(), CalculateY(), CalculateBeam();
     void RedoAnalysis();
