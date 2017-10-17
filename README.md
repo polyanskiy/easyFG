@@ -12,11 +12,11 @@ Dependencies (only for compiling from source code - windows installer includes e
 --------
 Developed using Qt Creator;
 
-QT (currently using v5.5)
+QT (currently using v5.9.2)
 
 MinGW (currently using v4.9.2)
 
-Requires Tiff (currently usnig v2.3.8)
+Requires Tiff (currently usnig v3.8.2)
 
 [Download Qt (includes Qt, MinGW and QtCreator)](http://www.qt.io/download-open-source/)
 

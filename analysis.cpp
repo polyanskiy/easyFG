@@ -274,9 +274,9 @@ void MainWindow::CalculateBeam()
             if(referenceComboBox->currentIndex()>0 && refloaded)
                 pixel = CorrectedArray[i][j] - offset;
             else
-                pixel = DataArray[i][j] - offset;
-            if(pixel<0)
-                pixel=0;
+                pixel = DataArray[i][j] - (float)offset;
+            //if(pixel<0)
+            //    pixel=0;
             horiz[i] += pixel;
             vert[j] += pixel;
             integrated += pixel;
@@ -285,24 +285,35 @@ void MainWindow::CalculateBeam()
 
     // centroid X, Y
     centroidx = 0;
+    integrated = 0;
     for(i=xmin; i<=xmax; i++)
-        centroidx += horiz[i] * i;
+        if(horiz[i]>0){
+            centroidx += horiz[i] * (float)i;
+            integrated += horiz[i];
+        }
     centroidx /= integrated;
 
     centroidy = 0;
-    for(j=ymin; j<=ymax; j++)
-        centroidy += vert[j] * j;
+
+    integrated = 0;
+    for(j=ymin; j<=ymax; j++) 
+        if(vert[j]>0){
+            centroidy += vert[j] * (float)j;
+            integrated += vert[j];
+        }
     centroidy /= integrated;
 
     // sigma X, Y
     sigmax = 0;
     for(i=xmin; i<=xmax; i++)
-        sigmax += horiz[i] * pow(centroidx-i,2);
+        if(horiz[i]>0)
+            sigmax += horiz[i] * pow(centroidx-i,2);
     sigmax = sqrt(sigmax/integrated);
 
     sigmay = 0;
     for(j=ymin; j<=ymax; j++)
-        sigmay += vert[j] * pow(centroidy-j,2);
+        if(vert[j]>0)
+            sigmay += vert[j] * pow(centroidy-j,2);
     sigmay = sqrt(sigmay/integrated);
 
     /*centroidx = floor(centroidx+0.5);
