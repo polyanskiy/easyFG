@@ -7,7 +7,7 @@
 ;General
 SetCompressor lzma
 Name "easyFG"
-OutFile "easyFG_20170403.exe"
+OutFile "easyFG_20171018.exe"
 
 ;Default install path
 InstallDir "$PROGRAMFILES\easyFG"          ;default
@@ -54,22 +54,26 @@ Section "Section_01" Sec01
   ;Write files to installation directory
   SetOutPath "$INSTDIR"
   File "release\easyfg.exe"
-  File "C:\Qt\5.8\mingw53_32\bin\libgcc_s_dw2-1.dll"
-  File "C:\Qt\5.8\mingw53_32\bin\libstdc++-6.dll"
-  File "C:\Qt\5.8\mingw53_32\bin\libwinpthread-1.dll"
-  File "C:\Qt\5.8\mingw53_32\bin\Qt5Core.dll"
-  File "C:\Qt\5.8\mingw53_32\bin\Qt5Gui.dll"
-  File "C:\Qt\5.8\mingw53_32\bin\Qt5Widgets.dll"
+  File "C:\Qt\5.9.2\mingw53_32\bin\libgcc_s_dw2-1.dll"
+  File "C:\Qt\5.9.2\mingw53_32\bin\libstdc++-6.dll"
+  File "C:\Qt\5.9.2\mingw53_32\bin\libwinpthread-1.dll"
+  File "C:\Qt\5.9.2\mingw53_32\bin\Qt5Core.dll"
+  File "C:\Qt\5.9.2\mingw53_32\bin\Qt5Gui.dll"
+  File "C:\Qt\5.9.2\mingw53_32\bin\Qt5Widgets.dll"
   ;libtiff
   File "C:\Program Files (x86)\GnuWin32\bin\jpeg62.dll"
   File "C:\Program Files (x86)\GnuWin32\bin\libtiff3.dll"
   File "C:\Program Files (x86)\GnuWin32\bin\zlib1.dll"
+  ;HDF5
+  File "C:\Program Files (x86)\HDF_Group\HDF5\1.10.1\bin\hdf5.dll"
+  File "C:\Program Files (x86)\HDF_Group\HDF5\1.10.1\bin\hdf5_hl.dll"
+  File "C:\Program Files (x86)\HDF_Group\HDF5\1.10.1\bin\zlib.dll"
   
   SetOutPath "$INSTDIR\platforms"
-  File "C:\Qt\5.8\mingw53_32\plugins\platforms\qwindows.dll"  
+  File "C:\Qt\5.9.2\mingw53_32\plugins\platforms\qwindows.dll"  
   
   SetOutPath "$INSTDIR\imageformats"
-  File "C:\Qt\5.8\mingw53_32\plugins\imageformats\qjpeg.dll"
+  File "C:\Qt\5.9.2\mingw53_32\plugins\imageformats\qjpeg.dll"
   
   SetOutPath "$INSTDIR\src"
   File "easyfg.h"
@@ -112,19 +116,23 @@ Section "Section_01" Sec01
   ;Registry
   WriteRegStr HKLM "Software\easyFG" "" $INSTDIR
   WriteRegStr HKCR "${EASYFG_ROOT_KEY}\SupportedTypes" ".asc" ""
+  WriteRegStr HKCR "${EASYFG_ROOT_KEY}\SupportedTypes" ".csv" ""
   WriteRegStr HKCR "${EASYFG_ROOT_KEY}\SupportedTypes" ".sif" ""
   WriteRegStr HKCR "${EASYFG_ROOT_KEY}\SupportedTypes" ".tif" ""
   WriteRegStr HKCR "${EASYFG_ROOT_KEY}\SupportedTypes" ".tiff" ""
   WriteRegStr HKCR "${EASYFG_ROOT_KEY}\SupportedTypes" ".raw" ""
+  WriteRegStr HKCR "${EASYFG_ROOT_KEY}\SupportedTypes" ".bgdata" ""
   WriteRegStr HKCR "${EASYFG_ROOT_KEY}\shell\open" "FriendlyAppName" "easyFG"
   WriteRegStr HKCR "${EASYFG_ROOT_KEY}\shell\open\command" "" '"$INSTDIR\easyfg.exe" "%1"'
   
   ;Register extensions
   WriteRegStr HKCR ".asc\OpenWithProgIds" "easyFG" ""
+  WriteRegStr HKCR ".csv\OpenWithProgIds" "easyFG" ""
   WriteRegStr HKCR ".sif\OpenWithProgIds" "easyFG" ""
   WriteRegStr HKCR ".tif\OpenWithProgIds" "easyFG" ""
   WriteRegStr HKCR ".tiff\OpenWithProgIds" "easyFG" ""
   WriteRegStr HKCR ".raw\OpenWithProgIds" "easyFG" ""
+  WriteRegStr HKCR ".bgdata\OpenWithProgIds" "easyFG" ""
   WriteRegStr HKCR "easyFG\shell\open" "FriendlyAppName" "easyFG";
   WriteRegStr HKCR "easyFG\shell\open\command" "" '"$INSTDIR\easyfg.exe" "%1"'
   
@@ -154,10 +162,12 @@ Section "Uninstall"
   DeleteRegKey HKCR "${EASYFG_ROOT_KEY}"
   DeleteRegKey HKCR "easyFG"
   DeleteRegValue HKCR ".asc\OpenWithProgIds" "easyFG"
+  DeleteRegValue HKCR ".csv\OpenWithProgIds" "easyFG"
   DeleteRegValue HKCR ".sif\OpenWithProgIds" "easyFG"
   DeleteRegValue HKCR ".tif\OpenWithProgIds" "easyFG"
   DeleteRegValue HKCR ".tiff\OpenWithProgIds" "easyFG"
   DeleteRegValue HKCR ".raw\OpenWithProgIds" "easyFG"
+  DeleteRegValue HKCR ".bgdata\OpenWithProgIds" "easyFG"
   ;remove regestry entries not properly cleared in previous versions
   DeleteRegValue HKCR ".asc\OpenWithProgIds" "easyFG.asc"
   DeleteRegValue HKCR ".sif\OpenWithProgIds" "easyFG.sif"
