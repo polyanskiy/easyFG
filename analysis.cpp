@@ -34,7 +34,7 @@ void MainWindow::on_XCheckBox_stateChanged()
         CalculateX();
 
     UpdateVisibility();
-    scene.update(scene.sceneRect());
+    UpdateScene();
 }
 
 
@@ -52,7 +52,7 @@ void MainWindow::on_YCheckBox_stateChanged()
         CalculateY();
 
     UpdateVisibility();
-    scene.update(scene.sceneRect());
+    UpdateScene();
 }
 
 
@@ -61,7 +61,7 @@ void MainWindow::on_beamCheckBox_stateChanged()
     if(!dataloaded)
         return;
 
-    if(beamCheckBox->isChecked()) {
+    if(beamCheckBox->isChecked()){
         x1line->setLine(0.5, X1SpinBox->value()+0.5, datawidth-0.5, X1SpinBox->value()+0.5);
         x2line->setLine(0.5, X2SpinBox->value()+0.5, datawidth-0.5, X2SpinBox->value()+0.5);
         y1line->setLine(Y1SpinBox->value(), 0.5, Y1SpinBox->value(), dataheight-0.5);
@@ -72,8 +72,8 @@ void MainWindow::on_beamCheckBox_stateChanged()
         CalculateBeam();
 
     UpdateVisibility();
+    UpdateScene();
     UpdateStatus();
-    scene.update(scene.sceneRect());
 }
 
 
@@ -86,10 +86,12 @@ void MainWindow::on_X1SpinBox_valueChanged()
 
     if(XCheckBox->isChecked())
         CalculateX();
-    if(beamCheckBox->isChecked())
+    if(beamCheckBox->isChecked()){
         CalculateBeam();
+        UpdateStatus();
+    }
 
-    scene.update(scene.sceneRect());
+    UpdateScene();
 }
 
 
@@ -102,10 +104,12 @@ void MainWindow::on_X2SpinBox_valueChanged()
 
     if(XCheckBox->isChecked())
         CalculateX();
-    if(beamCheckBox->isChecked())
+    if(beamCheckBox->isChecked()){
         CalculateBeam();
+        UpdateStatus();
+    }
 
-    scene.update(scene.sceneRect());
+    UpdateScene();
 }
 
 
@@ -118,10 +122,12 @@ void MainWindow::on_Y1SpinBox_valueChanged()
 
     if(YCheckBox->isChecked())
         CalculateY();
-    if(beamCheckBox->isChecked())
+    if(beamCheckBox->isChecked()){
         CalculateBeam();
+        UpdateStatus();
+    }
 
-    scene.update(scene.sceneRect());
+    UpdateScene();
 }
 
 
@@ -134,34 +140,98 @@ void MainWindow::on_Y2SpinBox_valueChanged()
 
     if(YCheckBox->isChecked())
         CalculateY();
-    if(beamCheckBox->isChecked())
+    if(beamCheckBox->isChecked()){
         CalculateBeam();
+        UpdateStatus();
+    }
 
-    scene.update(scene.sceneRect());
+    UpdateScene();
 }
 
 
 void MainWindow::on_XCopyButton_clicked()
 {
+    if(!dataloaded)
+        return;
     QString str = QString();
-    if(XCheckBox->isChecked() && dataloaded){
-        for(int i=0; i<datawidth; i++)
-            str += QString::number(i) + "\t" +  QString::number(X[i]) + "\n";
-    }
+    for(int i=0; i<datawidth; i++)
+        str += QString::number(i) + "\t" +  QString::number(X[i]) + "\n";
     QApplication::clipboard()->setText(str);
 }
 
 
 void MainWindow::on_YCopyButton_clicked()
 {
+    if(!dataloaded)
+        return;
     QString str = QString();
-    if(YCheckBox->isChecked() && dataloaded){
-        for(int j=0; j<dataheight; j++)
-            str += QString::number(j) + "\t" +  QString::number(Y[j]) + "\n";
-    }
+    for(int j=0; j<dataheight; j++)
+        str += QString::number(j) + "\t" +  QString::number(Y[j]) + "\n";
     QApplication::clipboard()->setText(str);
 }
 
+
+void MainWindow::on_FixRangesButton_clicked()
+{
+    if(!dataloaded)
+        return;
+
+    X1SpinBox->setValue(centroidy-sigmay*6);
+    X2SpinBox->setValue(centroidy+sigmay*6);
+    Y1SpinBox->setValue(centroidx-sigmax*6);
+    Y2SpinBox->setValue(centroidx+sigmax*6);
+
+    UpdateRanges();
+
+    CalculateBeam();
+    if(XCheckBox->isChecked())
+        CalculateX();
+    if(YCheckBox->isChecked())
+        CalculateY();
+
+    UpdateScene();
+    UpdateStatus();
+}
+
+void MainWindow::on_FixOffsetButton_clicked()
+{
+    if(!dataloaded)
+        return;
+
+    int i,j;
+    int count=0;
+    int offset=0;
+
+    int ymin = (X1SpinBox->value() < X2SpinBox->value()) ? X1SpinBox->value() : X2SpinBox->value();
+    int ymax = (X1SpinBox->value() < X2SpinBox->value()) ? X2SpinBox->value() : X1SpinBox->value();
+    int xmin = (Y1SpinBox->value() < Y2SpinBox->value()) ? Y1SpinBox->value() : Y2SpinBox->value();
+    int xmax = (Y1SpinBox->value() < Y2SpinBox->value()) ? Y2SpinBox->value() : Y1SpinBox->value();
+
+    for(i=0; i<datawidth; i++){
+        for(j=0; j<dataheight; j++) {
+            if(i<xmin||i>xmax||j<ymin||j>ymax){
+                count++;
+                if(referenceComboBox->currentIndex()>0 && refloaded)
+                    offset += CorrectedArray[i][j];
+                else
+                    offset += DataArray[i][j];
+            }
+        }
+    }
+    if(count)
+        offset /= count;
+
+    offsetSpinBox->setValue(offset);
+
+    CalculateBeam();
+    if(XCheckBox->isChecked())
+        CalculateX();
+    if(YCheckBox->isChecked())
+        CalculateY();
+
+    UpdateScene();
+    UpdateStatus();
+}
 
 void MainWindow::CalculateX()
 {
@@ -285,36 +355,25 @@ void MainWindow::CalculateBeam()
 
     // centroid X, Y
     centroidx = 0;
-    integrated = 0;
     for(i=xmin; i<=xmax; i++)
-        if(horiz[i]>0){
-            centroidx += horiz[i] * (float)i;
-            integrated += horiz[i];
-        }
+        centroidx += horiz[i] * (float)i;
     centroidx /= integrated;
 
     centroidy = 0;
-
-    integrated = 0;
     for(j=ymin; j<=ymax; j++) 
-        if(vert[j]>0){
-            centroidy += vert[j] * (float)j;
-            integrated += vert[j];
-        }
+        centroidy += vert[j] * (float)j;
     centroidy /= integrated;
 
     // sigma X, Y
     sigmax = 0;
     for(i=xmin; i<=xmax; i++)
-        if(horiz[i]>0)
             sigmax += horiz[i] * pow(centroidx-i,2);
-    sigmax = sqrt(sigmax/integrated);
+    sigmax<=0||integrated<=0 ? sigmax=0 : sigmax=sqrt(sigmax/integrated);
 
     sigmay = 0;
     for(j=ymin; j<=ymax; j++)
-        if(vert[j]>0)
             sigmay += vert[j] * pow(centroidy-j,2);
-    sigmay = sqrt(sigmay/integrated);
+    sigmay<=0||integrated<=0 ? sigmay=0 : sigmay=sqrt(sigmay/integrated);
 
     /*centroidx = floor(centroidx+0.5);
     centroidy = floor(centroidy+0.5);

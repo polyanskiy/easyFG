@@ -1,12 +1,11 @@
 #include "easyfg.h"
 
 
-MainWindow::MainWindow( QWidget * parent)
-	: QMainWindow(parent)
+MainWindow::MainWindow( QWidget * parent) : QMainWindow(parent)
 {
     setupUi(this);
 
-    version = "2017-10-17";
+    version = "2017-10-18";
 
     inimage = false;
     x1drag = false;

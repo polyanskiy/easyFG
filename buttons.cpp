@@ -13,7 +13,7 @@ void MainWindow::on_hideSidebarButton_clicked()
  void MainWindow::on_openButton_clicked()
 {
     QFileInfo fi(datafile);
-    QString fileName = QFileDialog::getOpenFileName(this, "Open data file", fi.path(), "All supported (*.asc *.csv *.tiff *.tif *.sif *.raw);;ASCII (*.asc *.csv);;TIFF (*.tiff *.tif);;Andor SIF (*.sif);;Pyrocam RAW (*.raw)");
+    QString fileName = QFileDialog::getOpenFileName(this, "Open data file", fi.path(), "All supported (*.asc *.csv *.tiff *.tif *.sif *.raw *.bgdata);;ASCII (*.asc *.csv);;TIFF (*.tiff *.tif);;Andor SIF (*.sif);;Pyrocam III RAW (*.raw);;Pyrocam IV bgData (*.bgdata)");
     if(fileName != QString())
         LoadData(fileName);
 }
@@ -23,7 +23,7 @@ void MainWindow::on_forwardButton_clicked()
 {
     QFileInfo fileinfo(datafile);
     QDir dir(fileinfo.dir());
-    QStringList extensions = (QStringList() << "*.asc" << "*.csv" << "*.tiff" << "*.tif" << "*.sif" << "*.raw");
+    QStringList extensions = (QStringList() << "*.asc" << "*.csv" << "*.tiff" << "*.tif" << "*.sif" << "*.raw" << "*.bgdata");
     QStringList filelist = dir.entryList(extensions, QDir::Files, QDir::Name);
     int index = filelist.indexOf(fileinfo.fileName());
     if(index+1 < filelist.count()){
@@ -37,7 +37,7 @@ void MainWindow::on_backButton_clicked()
 {
     QFileInfo fileinfo(datafile);
     QDir dir(fileinfo.dir());
-    QStringList extensions = (QStringList() << "*.asc" << "*.csv" << "*.tiff" << "*.tif" << "*.sif" << "*.raw");
+    QStringList extensions = (QStringList() << "*.asc" << "*.csv" << "*.tiff" << "*.tif" << "*.sif" << "*.raw" << "*.bgdata");
     QStringList filelist = dir.entryList(extensions, QDir::Files, QDir::Name);
 
     int index = filelist.indexOf(fileinfo.fileName());

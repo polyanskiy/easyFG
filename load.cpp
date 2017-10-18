@@ -49,6 +49,7 @@ void MainWindow::LoadAscii(QString filename, int **Array, int *width, int *heigh
 }
 
 
+//Andor .sif (doesn't work for all cameras; use tiff instead)
 void MainWindow::LoadSif(QString filename, int **Array, int *width, int *height)
 {
     int n_lines_before_data;
@@ -179,7 +180,7 @@ void MainWindow::LoadTiff(QString filename, int **Array, int *width, int *height
     TIFFClose(tif);
 }
 
-
+// Pyrocam III .RAW file
 void MainWindow::LoadRaw(QString filename, int **Array, int *width, int *height)
 {
     int i, j;
@@ -211,6 +212,46 @@ void MainWindow::LoadRaw(QString filename, int **Array, int *width, int *height)
 }
 
 
+// Pyrocam IV .bgData file
+void MainWindow::LoadBgdata(QString filename, int **Array, int *width, int *height)
+{
+    int i, j;
+    *width = 0;
+    *height = 0;
+    hid_t file;
+    int32 *data;
+
+    file = H5Fopen(filename.toUtf8(), H5F_ACC_RDONLY, H5P_DEFAULT);
+
+    // read width and height
+    H5LTread_dataset_int(file, "/BG_DATA/1/RAWFRAME/WIDTH", width);
+    H5LTread_dataset_int(file, "/BG_DATA/1/RAWFRAME/HEIGHT", height);
+
+    data = (int32*)malloc(sizeof(int32) * (*width) * (*height));
+
+    // read dataset
+    H5LTread_dataset_int(file,"/BG_DATA/1/DATA",data);
+
+    for(j=0; j<*height; j++) {
+        for(i=0; i<*width; i++)
+            Array[i][j] = data[i+(*width)*j] >> 16; // shift 16 bit to the right
+    }
+
+    // from Ophir website:
+    // Regarding the .bgData image file decription; the input camera native source may be 8, 10, 12, 14, or 16 bits per pixel.
+    // BeamGage employs a normalized (signed 32-bit) fixed point format for storing pixel values in HDF5 data files. The
+    // acquired and processed camera pixel data is converted to a 32-bit signed value and stored. The most significant bit of the
+    // camera’s native data is shifted to the bit position just behind the sign bit (assuming bit positions 0 [lsb] -31 [msb] this would
+    // be position 30). The empty bits below the native format are then available for additional precision and will be utilized via
+    // frame averaging, background subtraction, or other image processing activities.
+
+    free(data);
+
+    /* close file */
+    H5Fclose(file);
+}
+
+
 void MainWindow::LoadData(QString path)
 {
     QFileInfo file(path);
@@ -221,20 +262,24 @@ void MainWindow::LoadData(QString path)
     int tmp;
 
     datafile = path;
-    if(file.suffix()=="asc" || file.suffix()=="ASC" || file.suffix()=="csv" || file.suffix()=="CSV"){ // ASCII file
+    if(file.suffix().toLower()=="asc" || file.suffix().toLower()=="csv"){ // ASCII
         LoadAscii(datafile, DataArray, &datawidth, &dataheight);
         dataloaded = true;
     }
-    if(file.suffix()=="sif" || file.suffix()=="SIF"){ // Andor sif
+    if(file.suffix().toLower()=="sif"){ // Andor sif
         LoadSif(datafile, DataArray, &datawidth, &dataheight);
         dataloaded = true;
     }
-    if(file.suffix()=="tiff" || file.suffix()=="tif" || file.suffix()=="TIFF" || file.suffix()=="TIF"){ // TIFF
-	LoadTiff(datafile, DataArray, &datawidth, &dataheight);
-	dataloaded = true;
+    if(file.suffix().toLower()=="tiff" || file.suffix().toLower()=="tif"){ // TIFF
+        LoadTiff(datafile, DataArray, &datawidth, &dataheight);
+        dataloaded = true;
     }
-    if(file.suffix()=="raw" || file.suffix()=="RAW"){ // Pyrocam
+    if(file.suffix().toLower()=="raw"){ // Pyrocam III
         LoadRaw(datafile, DataArray, &datawidth, &dataheight);
+        dataloaded = true;
+    } 
+    if(file.suffix().toLower()=="bgdata"){ // Pyrocam IV
+        LoadBgdata(datafile, DataArray, &datawidth, &dataheight);
         dataloaded = true;
     }
     if(!dataloaded)
@@ -280,20 +325,24 @@ void MainWindow::LoadRef(QString path)
 
     reffile = path;
 
-    if(file.suffix()=="asc" || file.suffix()=="ASC"){ // ASCII file
+    if(file.suffix().toLower()=="asc"){ // ASCII file
         LoadAscii(reffile, RefArray, &refwidth, &refheight);
         refloaded = true;
     }
-    if(file.suffix()=="sif" || file.suffix()=="SIF"){ // Andor sif
+    if(file.suffix().toLower()=="sif"){ // Andor sif
         LoadSif(reffile, RefArray, &refwidth, &refheight);
         refloaded = true;
     }
-    if(file.suffix()=="tiff" || file.suffix()=="tif" || file.suffix()=="TIFF" || file.suffix()=="TIF"){ // TIFF
+    if(file.suffix().toLower()=="tiff" || file.suffix().toLower()=="tif"){ // TIFF
         LoadTiff(reffile, RefArray, &refwidth, &refheight);
         refloaded = true;
     }
-    if(file.suffix()=="raw" || file.suffix()=="RAW"){ // Pyrocam
+    if(file.suffix().toLower()=="raw"){ // Pyrocam III
         LoadRaw(reffile, RefArray, &refwidth, &refheight);
+        refloaded = true;
+    }
+    if(file.suffix().toLower()=="bgdata"){ // Pyrocam IV
+        LoadBgdata(reffile, RefArray, &refwidth, &refheight);
         refloaded = true;
     }
     if(!refloaded)

@@ -10,8 +10,7 @@ MyScene::MyScene()
 
 bool MyScene::event(QEvent* event)
 {
-    switch(event->type())
-    {
+    switch(event->type()){
         case QEvent::Leave:
             emit mouseLeft();
             break;
@@ -42,17 +41,16 @@ void MainWindow::mouseMovedOnScene()
     else
 	inimage = true;
 
-    if(inimage)
-    {
-	setCursor(Qt::CrossCursor);
-    if(( (YCheckBox->isChecked()||beamCheckBox->isChecked()) && x <= Y2SpinBox->value()+2/pow(2,zoom/2) && x >= Y2SpinBox->value()-2/pow(2,zoom/2)) || y2drag)
-	    setCursor(Qt::SplitHCursor);
-    if(( (YCheckBox->isChecked()||beamCheckBox->isChecked()) && x <= Y1SpinBox->value()+2/pow(2,zoom/2) && x >= Y1SpinBox->value()-2/pow(2,zoom/2)) || y1drag)
-	    setCursor(Qt::SplitHCursor);
-    if(( (XCheckBox->isChecked()||beamCheckBox->isChecked()) && y <= X2SpinBox->value()+2/pow(2,zoom/2) && y >= X2SpinBox->value()-2/pow(2,zoom/2)) || x2drag)
-	    setCursor(Qt::SplitVCursor);
-    if(( (XCheckBox->isChecked()||beamCheckBox->isChecked()) && y <= X1SpinBox->value()+2/pow(2,zoom/2) && y >= X1SpinBox->value()-2/pow(2,zoom/2)) || x1drag)
-	    setCursor(Qt::SplitVCursor);
+    if(inimage){
+        setCursor(Qt::CrossCursor);
+        if(( (YCheckBox->isChecked()||beamCheckBox->isChecked()) && x <= Y2SpinBox->value()+2/pow(2,zoom/2) && x >= Y2SpinBox->value()-2/pow(2,zoom/2)) || y2drag)
+            setCursor(Qt::SplitHCursor);
+        if(( (YCheckBox->isChecked()||beamCheckBox->isChecked()) && x <= Y1SpinBox->value()+2/pow(2,zoom/2) && x >= Y1SpinBox->value()-2/pow(2,zoom/2)) || y1drag)
+            setCursor(Qt::SplitHCursor);
+        if(( (XCheckBox->isChecked()||beamCheckBox->isChecked()) && y <= X2SpinBox->value()+2/pow(2,zoom/2) && y >= X2SpinBox->value()-2/pow(2,zoom/2)) || x2drag)
+            setCursor(Qt::SplitVCursor);
+        if(( (XCheckBox->isChecked()||beamCheckBox->isChecked()) && y <= X1SpinBox->value()+2/pow(2,zoom/2) && y >= X1SpinBox->value()-2/pow(2,zoom/2)) || x1drag)
+            setCursor(Qt::SplitVCursor);
     }
     else
 	setCursor(Qt::ArrowCursor);

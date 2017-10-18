@@ -5,18 +5,19 @@
 void MainWindow::on_offsetSpinBox_valueChanged()
 {
     if(!dataloaded)
-	return;
+        return;
 
     RedoAnalysis();
     UpdateImage();
     UpdateScene();
+    UpdateStatus();
 }
 
 
 void MainWindow::on_cutoffSpinBox_valueChanged()
 {
     if(!dataloaded)
-	return;
+        return;
 
     RedoAnalysis();
     UpdateImage();
@@ -27,10 +28,11 @@ void MainWindow::on_cutoffSpinBox_valueChanged()
 void MainWindow::on_scaleComboBox_currentIndexChanged()
 {
     if(!dataloaded)
-	return;
+        return;
 
     UpdateRanges();
     RedoAnalysis();
     UpdateImage();
     UpdateScene();
+    UpdateStatus();
 }

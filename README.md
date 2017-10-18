@@ -14,7 +14,7 @@ Developed using Qt Creator;
 
 QT (currently using v5.9.2)
 
-MinGW (currently using v4.9.2)
+MinGW (currently using v5.3.0)
 
 Requires Tiff (currently usnig v3.8.2)
 

@@ -14,8 +14,8 @@ easyFG*.exe
 Thumbs.db
 ehthumbs.db
 
-# Folder config file
 Desktop.ini
+# Folder config file
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/

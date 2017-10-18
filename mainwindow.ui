@@ -318,17 +318,22 @@ M (Min:Max)
              </property>
              <item>
               <property name="text">
-               <string>Auto</string>
+               <string>Auto MIN:MAX</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>Custom</string>
+               <string>Auto MAX</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>Min:Max</string>
+               <string>Auto MAX (bits)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Manual</string>
               </property>
              </item>
              <item>
@@ -438,16 +443,6 @@ M (Min:Max)
            <string>Analysis</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="XCheckBox">
-             <property name="toolTip">
-              <string>X</string>
-             </property>
-             <property name="text">
-              <string>X</string>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="1">
             <widget class="QPushButton" name="XCopyButton">
              <property name="toolTip">
@@ -501,8 +496,18 @@ M (Min:Max)
              </item>
             </layout>
            </item>
-           <item row="2" column="0">
-            <spacer name="verticalSpacer_6">
+           <item row="3" column="1">
+            <widget class="QPushButton" name="YCopyButton">
+             <property name="toolTip">
+              <string notr="true">Alt+Y</string>
+             </property>
+             <property name="text">
+              <string>Copy</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <spacer name="verticalSpacer_2">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -516,26 +521,6 @@ M (Min:Max)
               </size>
              </property>
             </spacer>
-           </item>
-           <item row="3" column="0">
-            <widget class="QCheckBox" name="YCheckBox">
-             <property name="toolTip">
-              <string>Y</string>
-             </property>
-             <property name="text">
-              <string>Y</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QPushButton" name="YCopyButton">
-             <property name="toolTip">
-              <string notr="true">Alt+Y</string>
-             </property>
-             <property name="text">
-              <string>Copy</string>
-             </property>
-            </widget>
            </item>
            <item row="5" column="0" colspan="2">
             <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -580,18 +565,8 @@ M (Min:Max)
              </item>
             </layout>
            </item>
-           <item row="7" column="0" colspan="2">
-            <widget class="QCheckBox" name="beamCheckBox">
-             <property name="toolTip">
-              <string>B</string>
-             </property>
-             <property name="text">
-              <string>Beam size (D4σ)</string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="0">
-            <spacer name="verticalSpacer_2">
+           <item row="2" column="0">
+            <spacer name="verticalSpacer_6">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -605,6 +580,50 @@ M (Min:Max)
               </size>
              </property>
             </spacer>
+           </item>
+           <item row="3" column="0">
+            <widget class="QCheckBox" name="YCheckBox">
+             <property name="toolTip">
+              <string>Y</string>
+             </property>
+             <property name="text">
+              <string>Y</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="XCheckBox">
+             <property name="toolTip">
+              <string>X</string>
+             </property>
+             <property name="text">
+              <string>X</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0" colspan="2">
+            <widget class="QCheckBox" name="beamCheckBox">
+             <property name="toolTip">
+              <string>B</string>
+             </property>
+             <property name="text">
+              <string>Beam size (D4σ)</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QPushButton" name="FixRangesButton">
+             <property name="text">
+              <string>Fix ranges</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="1">
+            <widget class="QPushButton" name="FixOffsetButton">
+             <property name="text">
+              <string>Fix offset</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>

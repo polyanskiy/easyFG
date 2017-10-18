@@ -14,8 +14,7 @@ void MainWindow::UpdateImage()
     SetColorTable();
 
     for(i=0; i<datawidth; i++)
-	for(j=0; j<dataheight; j++)
-	{
+	for(j=0; j<dataheight; j++){
 	    if(referenceComboBox->currentIndex()>0 && refloaded)
             pixel = (int)((CorrectedArray[i][j]-offset)*255.0/(cutoff-offset)+0.5);
 	    else
@@ -56,90 +55,94 @@ void MainWindow::UpdateRanges()
     y1line->setLine(Y1SpinBox->value()+0.5, 0.5, Y1SpinBox->value()+0.5, dataheight-0.5);
     y2line->setLine(Y2SpinBox->value()+0.5, 0.5, Y2SpinBox->value()+0.5, dataheight-0.5);
 
-    switch(scaleComboBox->currentIndex())
-    {
-    case 0: // "Auto"
-        if(datamax<=255)
+    switch(scaleComboBox->currentIndex()){
+        case 0: // "Auto MIN:MAX"
+            offsetSpinBox->setValue( referenceComboBox->currentIndex() == 0 ? datamin : correctedmin );
+            cutoffSpinBox->setValue( referenceComboBox->currentIndex() == 0 ? datamax : correctedmax );
+            offsetSpinBox->setEnabled(false);
+            cutoffSpinBox->setEnabled(false);
+            break;
+        case 1: // "Auto MAX"
+            cutoffSpinBox->setValue( referenceComboBox->currentIndex() == 0 ? datamax : correctedmax );
+            offsetSpinBox->setEnabled(true);
+            cutoffSpinBox->setEnabled(false);
+            break;
+        case 2: // "Auto MAX (bits)"
+            if(datamax<=255)
+                cutoffSpinBox->setValue(255);
+            if(datamax>255 && datamax<=511)
+                cutoffSpinBox->setValue(511);
+            if(datamax>511 && datamax<=1023)
+                cutoffSpinBox->setValue(1023);
+            if(datamax>1023 && datamax<=2045)
+                cutoffSpinBox->setValue(2045);
+            if(datamax>2045 && datamax<=4095)
+                cutoffSpinBox->setValue(4095);
+            if(datamax>4095 && datamax<=8191)
+                cutoffSpinBox->setValue(8191);
+            if(datamax>8191 && datamax<=16383)
+                cutoffSpinBox->setValue(16383);
+            if(datamax>16383 && datamax<=32767)
+                cutoffSpinBox->setValue(32767);
+            if(datamax>32767)
+                cutoffSpinBox->setValue(65535);
+            offsetSpinBox->setEnabled(true);
+            cutoffSpinBox->setEnabled(false);
+            break;
+        case 3: // "Manual"
+            offsetSpinBox->setEnabled(true);
+            cutoffSpinBox->setEnabled(true);
+            break;
+        case 4: // "7 bit"
+            cutoffSpinBox->setValue(127);
+            offsetSpinBox->setEnabled(true);
+            cutoffSpinBox->setEnabled(false);
+            break;
+        case 5: // "8 bit"
             cutoffSpinBox->setValue(255);
-	if(datamax>255 && datamax<=511)
-	    cutoffSpinBox->setValue(511);
-	if(datamax>511 && datamax<=1023)
+            offsetSpinBox->setEnabled(true);
+            cutoffSpinBox->setEnabled(false);
+            break;
+        case 6: // "9 bit"
+            cutoffSpinBox->setValue(511);
+            offsetSpinBox->setEnabled(true);
+            cutoffSpinBox->setEnabled(false);
+            break;
+        case 7: // "10 bit"
             cutoffSpinBox->setValue(1023);
-	if(datamax>1023 && datamax<=2045)
-	    cutoffSpinBox->setValue(2045);
-	if(datamax>2045 && datamax<=4095)
+            offsetSpinBox->setEnabled(true);
+            cutoffSpinBox->setEnabled(false);
+            break;
+        case 8: // "11 bit"
+            cutoffSpinBox->setValue(2047);
+            offsetSpinBox->setEnabled(true);
+            cutoffSpinBox->setEnabled(false);
+            break;
+        case 9: // "12 bit"
             cutoffSpinBox->setValue(4095);
-	if(datamax>4095 && datamax<=8191)
-	    cutoffSpinBox->setValue(8191);
-	if(datamax>8191 && datamax<=16383)
-	    cutoffSpinBox->setValue(16383);
-	if(datamax>16383 && datamax<=32767)
-	    cutoffSpinBox->setValue(32767);
-	if(datamax>32767)
+            offsetSpinBox->setEnabled(true);
+            cutoffSpinBox->setEnabled(false);
+            break;
+        case 10: // "13 bit"
+            cutoffSpinBox->setValue(8191);
+            offsetSpinBox->setEnabled(true);
+            cutoffSpinBox->setEnabled(false);
+        break;
+        case 11: // "14 bit"
+            cutoffSpinBox->setValue(16383);
+            offsetSpinBox->setEnabled(true);
+            cutoffSpinBox->setEnabled(false);
+            break;
+        case 12: // "15 bit"
+            cutoffSpinBox->setValue(32767);
+            offsetSpinBox->setEnabled(true);
+            cutoffSpinBox->setEnabled(false);
+            break;
+        case 13: // "16 bit"
             cutoffSpinBox->setValue(65535);
-        offsetSpinBox->setEnabled(true);
-        cutoffSpinBox->setEnabled(false);
-        break;
-    case 1: // "Custom"
-        offsetSpinBox->setEnabled(true);
-        cutoffSpinBox->setEnabled(true);
-        break;
-    case 2: // "MIN:MAX"
-        offsetSpinBox->setValue( referenceComboBox->currentIndex() == 0 ? datamin : correctedmin );
-        cutoffSpinBox->setValue( referenceComboBox->currentIndex() == 0 ? datamax : correctedmax );
-        offsetSpinBox->setEnabled(false);
-        cutoffSpinBox->setEnabled(false);
-        break;
-    case 3: // "7 bit"
-        cutoffSpinBox->setValue(127);
-        offsetSpinBox->setEnabled(true);
-        cutoffSpinBox->setEnabled(false);
-        break;
-    case 4: // "8 bit"
-        cutoffSpinBox->setValue(255);
-        offsetSpinBox->setEnabled(true);
-        cutoffSpinBox->setEnabled(false);
-        break;
-    case 5: // "9 bit"
-        cutoffSpinBox->setValue(511);
-        offsetSpinBox->setEnabled(true);
-        cutoffSpinBox->setEnabled(false);
-        break;
-    case 6: // "10 bit"
-        cutoffSpinBox->setValue(1023);
-        offsetSpinBox->setEnabled(true);
-        cutoffSpinBox->setEnabled(false);
-        break;
-    case 7: // "11 bit"
-        cutoffSpinBox->setValue(2047);
-        offsetSpinBox->setEnabled(true);
-        cutoffSpinBox->setEnabled(false);
-        break;
-    case 8: // "12 bit"
-        cutoffSpinBox->setValue(4095);
-        offsetSpinBox->setEnabled(true);
-        cutoffSpinBox->setEnabled(false);
-        break;
-    case 9: // "13 bit"
-        cutoffSpinBox->setValue(8191);
-        offsetSpinBox->setEnabled(true);
-        cutoffSpinBox->setEnabled(false);
-	break;
-    case 10: // "14 bit"
-        cutoffSpinBox->setValue(16383);
-        offsetSpinBox->setEnabled(true);
-        cutoffSpinBox->setEnabled(false);
-        break;
-    case 11: // "15 bit"
-        cutoffSpinBox->setValue(32767);
-        offsetSpinBox->setEnabled(true);
-        cutoffSpinBox->setEnabled(false);
-        break;
-    case 12: // "16 bit"
-        cutoffSpinBox->setValue(65535);
-        offsetSpinBox->setEnabled(true);
-        cutoffSpinBox->setEnabled(false);
-        break;
+            offsetSpinBox->setEnabled(true);
+            cutoffSpinBox->setEnabled(false);
+            break;
     }
 
     dataloaded = true;
@@ -228,4 +231,6 @@ void MainWindow::UpdateVisibility()
     Y2SpinBox->setEnabled( YCheckBox->isChecked()||beamCheckBox->isChecked() );
     minMaxLabel_3->setEnabled( YCheckBox->isChecked()||beamCheckBox->isChecked() );
     YCopyButton->setEnabled( YCheckBox->isChecked() );
+    FixRangesButton->setEnabled( beamCheckBox->isChecked() );
+    FixOffsetButton->setEnabled( beamCheckBox->isChecked() );
 }

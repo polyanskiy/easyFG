@@ -14,7 +14,9 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QMessageBox>
 #include <math.h>
-#include <tiffio.h>
+#include "tiffio.h"
+#include "hdf5.h"
+#include "hdf5_hl.h"
 #include "ui_mainwindow.h"
 
 #define MAX_WIDTH 2048
@@ -78,6 +80,7 @@ private:
     void LoadSif(QString, int**, int*, int*);
     void LoadTiff(QString, int**, int*, int*);
     void LoadRaw(QString, int**, int*, int*);
+    void LoadBgdata(QString, int**, int*, int*);
     void SaveAscii(QString, int**);
     void CalculateCorrectedArray();
     void CalculateX(), CalculateY(), CalculateBeam();
@@ -137,6 +140,8 @@ private slots:
     void on_xshiftSpinBox_valueChanged();
     void on_yshiftSpinBox_valueChanged();
     void on_beamCheckBox_stateChanged();
+    void on_FixRangesButton_clicked();
+    void on_FixOffsetButton_clicked();
     void on_graphicsView_customContextMenuRequested();
     void on_scaleLabel_customContextMenuRequested();
     void on_hideSidebarButton_clicked();
