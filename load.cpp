@@ -241,7 +241,7 @@ void MainWindow::LoadBgdata(QString filename, int **Array, int *width, int *heig
     // Regarding the .bgData image file decription; the input camera native source may be 8, 10, 12, 14, or 16 bits per pixel.
     // BeamGage employs a normalized (signed 32-bit) fixed point format for storing pixel values in HDF5 data files. The
     // acquired and processed camera pixel data is converted to a 32-bit signed value and stored. The most significant bit of the
-    // camera’s native data is shifted to the bit position just behind the sign bit (assuming bit positions 0 [lsb] -31 [msb] this would
+    // camera's native data is shifted to the bit position just behind the sign bit (assuming bit positions 0 [lsb] -31 [msb] this would
     // be position 30). The empty bits below the native format are then available for additional precision and will be utilized via
     // frame averaging, background subtraction, or other image processing activities.
 

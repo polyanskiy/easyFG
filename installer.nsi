@@ -5,7 +5,6 @@
 !include "MUI.nsh"
 
 ;General
-SetCompressor lzma
 Name "easyFG"
 OutFile "easyFG_20171018.exe"
 
@@ -68,6 +67,7 @@ Section "Section_01" Sec01
   File "C:\Program Files (x86)\HDF_Group\HDF5\1.10.1\bin\hdf5.dll"
   File "C:\Program Files (x86)\HDF_Group\HDF5\1.10.1\bin\hdf5_hl.dll"
   File "C:\Program Files (x86)\HDF_Group\HDF5\1.10.1\bin\zlib.dll"
+  File "C:\Program Files (x86)\HDF_Group\HDF5\1.10.1\bin\szip.dll"
   
   SetOutPath "$INSTDIR\platforms"
   File "C:\Qt\5.9.2\mingw53_32\plugins\platforms\qwindows.dll"  

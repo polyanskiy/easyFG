@@ -176,10 +176,10 @@ void MainWindow::on_FixRangesButton_clicked()
     if(!dataloaded)
         return;
 
-    X1SpinBox->setValue(centroidy-sigmay*6);
-    X2SpinBox->setValue(centroidy+sigmay*6);
-    Y1SpinBox->setValue(centroidx-sigmax*6);
-    Y2SpinBox->setValue(centroidx+sigmax*6);
+    X1SpinBox->setValue(round(centroidy-sigmay*6));
+    X2SpinBox->setValue(round(centroidy+sigmay*6));
+    Y1SpinBox->setValue(round(centroidx-sigmax*6));
+    Y2SpinBox->setValue(round(centroidx+sigmax*6));
 
     UpdateRanges();
 
@@ -200,7 +200,7 @@ void MainWindow::on_FixOffsetButton_clicked()
 
     int i,j;
     int count=0;
-    int offset=0;
+    double offset=0;
 
     int ymin = (X1SpinBox->value() < X2SpinBox->value()) ? X1SpinBox->value() : X2SpinBox->value();
     int ymax = (X1SpinBox->value() < X2SpinBox->value()) ? X2SpinBox->value() : X1SpinBox->value();
@@ -219,7 +219,7 @@ void MainWindow::on_FixOffsetButton_clicked()
         }
     }
     if(count)
-        offset /= count;
+        offset = (int)round(offset/count);
 
     offsetSpinBox->setValue(offset);
 
@@ -345,8 +345,6 @@ void MainWindow::CalculateBeam()
                 pixel = CorrectedArray[i][j] - offset;
             else
                 pixel = DataArray[i][j] - (float)offset;
-            //if(pixel<0)
-            //    pixel=0;
             horiz[i] += pixel;
             vert[j] += pixel;
             integrated += pixel;
@@ -374,11 +372,6 @@ void MainWindow::CalculateBeam()
     for(j=ymin; j<=ymax; j++)
             sigmay += vert[j] * pow(centroidy-j,2);
     sigmay<=0||integrated<=0 ? sigmay=0 : sigmay=sqrt(sigmay/integrated);
-
-    /*centroidx = floor(centroidx+0.5);
-    centroidy = floor(centroidy+0.5);
-    sigmax = floor(sigmax+0.5);
-    sigmay = floor(sigmay+0.5);*/
 
     // centroid mark
     centerAline->setLine(centroidx-2.5, centroidy-2.5, centroidx+3.5, centroidy+3.5);
