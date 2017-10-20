@@ -91,11 +91,6 @@ class MainWindow : public QMainWindow, public Ui::MainWindowClass
     private slots:
         void Shortcut_F11();
         void Shortcut_ESC();
-        void Shortcut_P();
-        void Shortcut_I();
-        void Shortcut_X();
-        void Shortcut_Y();
-        void Shortcut_D();
         void on_openButton_clicked();
         void on_backButton_clicked();
         void on_forwardButton_clicked();

@@ -12,47 +12,11 @@ void MainWindow::InitializeShortcuts()
     shortcut = new QShortcut(QKeySequence("ESC"),this);
     connect(shortcut, SIGNAL(activated()), this, SLOT(Shortcut_ESC()));
 
-    shortcut = new QShortcut(QKeySequence("Ctrl+O"),this);
-    connect(shortcut, SIGNAL(activated()), this, SLOT(on_openButton_clicked()));
-
-    shortcut = new QShortcut(QKeySequence("Ctrl+S"),this);
-    connect(shortcut, SIGNAL(activated()), this, SLOT(on_saveButton_clicked()));
-
-    shortcut = new QShortcut(QKeySequence("Right"),this);
-    connect(shortcut, SIGNAL(activated()), this, SLOT(on_forwardButton_clicked()));
-
-    shortcut = new QShortcut(QKeySequence("Left"),this);
-    connect(shortcut, SIGNAL(activated()), this, SLOT(on_backButton_clicked()));
-
-    shortcut = new QShortcut(QKeySequence(QKeySequence::ZoomIn),this);
+    // setting two shortcuts for single button from GUI designer doesn't work: setting up here
+    shortcut = new QShortcut(QKeySequence("Ctrl++"),this);
     connect(shortcut, SIGNAL(activated()), this, SLOT(on_ZoomInButton_clicked()));
     shortcut = new QShortcut(QKeySequence("Ctrl+="),this);
     connect(shortcut, SIGNAL(activated()), this, SLOT(on_ZoomInButton_clicked()));
-
-    shortcut = new QShortcut(QKeySequence(QKeySequence::ZoomOut),this);
-    connect(shortcut, SIGNAL(activated()), this, SLOT(on_ZoomOutButton_clicked()));
-
-    shortcut = new QShortcut(QKeySequence("Ctrl+0"),this);
-    connect(shortcut, SIGNAL(activated()), this, SLOT(on_UnzoomButton_clicked()));
-
-
-    shortcut = new QShortcut(QKeySequence("P"),this);
-    connect(shortcut, SIGNAL(activated()), this, SLOT(Shortcut_P()));
-
-    shortcut = new QShortcut(QKeySequence("I"),this);
-    connect(shortcut, SIGNAL(activated()), this, SLOT(Shortcut_I()));
-
-    shortcut = new QShortcut(QKeySequence("X"),this);
-    connect(shortcut, SIGNAL(activated()), this, SLOT(Shortcut_X()));
-
-    shortcut = new QShortcut(QKeySequence("Y"),this);
-    connect(shortcut, SIGNAL(activated()), this, SLOT(Shortcut_Y()));
-
-    shortcut = new QShortcut(QKeySequence("D"),this);
-    connect(shortcut, SIGNAL(activated()), this, SLOT(Shortcut_D()));
-
-    shortcut = new QShortcut(QKeySequence("Ctrl+C"),this);
-    connect(shortcut, SIGNAL(activated()), this, SLOT(CopyImage()));
 }
 
 
@@ -83,27 +47,3 @@ void MainWindow::Shortcut_ESC() // leave fullscreen
     }
 }
 
-void MainWindow::Shortcut_X()
-{
-        XCheckBox->setChecked(!XCheckBox->isChecked());
-}
-
-void MainWindow::Shortcut_Y()
-{
-        YCheckBox->setChecked(!YCheckBox->isChecked());
-}
-
-void MainWindow::Shortcut_D()
-{
-    DCheckBox->setChecked(!DCheckBox->isChecked());
-}
-
-void MainWindow::Shortcut_P()
-{
-        pseudocolorCheckBox->setChecked(!pseudocolorCheckBox->isChecked());
-}
-
-void MainWindow::Shortcut_I()
-{
-        invertedCheckBox->setChecked(!invertedCheckBox->isChecked());
-}

@@ -39,7 +39,6 @@ void MainWindow::on_backButton_clicked()
     QDir dir(fileinfo.dir());
     QStringList extensions = (QStringList() << "*.asc" << "*.csv" << "*.tiff" << "*.tif" << "*.sif" << "*.raw" << "*.bgdata");
     QStringList filelist = dir.entryList(extensions, QDir::Files, QDir::Name);
-
     int index = filelist.indexOf(fileinfo.fileName());
     if(index-1 >= 0){
         fileinfo.setFile(dir, filelist.value(index-1));
@@ -51,7 +50,6 @@ void MainWindow::on_backButton_clicked()
 void MainWindow::on_ZoomOutButton_clicked(){
     if(zoom == -10)
         return;
-
     graphicsView->scale(pow(2, -0.5*zoom), pow(2, -0.5*zoom)); // unzoom
     zoom--;
     graphicsView->scale(pow(2, 0.5*zoom), pow(2, 0.5*zoom));   // zoom
@@ -63,7 +61,6 @@ void MainWindow::on_ZoomOutButton_clicked(){
 void MainWindow::on_ZoomInButton_clicked(){
     if(zoom == 10)
         return;
-
     graphicsView->scale(pow(2, -0.5*zoom), pow(2, -0.5*zoom)); // unzoom
     zoom++;
     graphicsView->scale(pow(2, 0.5*zoom), pow(2, 0.5*zoom));   // zoom
@@ -75,7 +72,6 @@ void MainWindow::on_ZoomInButton_clicked(){
 void MainWindow::on_UnzoomButton_clicked(){
     if(zoom == 0)
         return;
-
     graphicsView->scale(pow(2,-0.5*zoom), pow(2,-0.5*zoom)); // unzoom
     zoom = 0;
     UpdateStatus();
