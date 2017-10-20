@@ -96,7 +96,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>197</width>
+         <width>213</width>
          <height>791</height>
         </rect>
        </property>
@@ -107,68 +107,6 @@
         </sizepolicy>
        </property>
        <layout class="QGridLayout" name="gridLayout_6">
-        <item row="0" column="0">
-         <layout class="QGridLayout" name="gridLayout_5">
-          <item row="0" column="0" rowspan="2">
-           <widget class="QToolButton" name="backButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="toolTip">
-             <string notr="true">←</string>
-            </property>
-            <property name="text">
-             <string>&lt;</string>
-            </property>
-            <property name="arrowType">
-             <enum>Qt::LeftArrow</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QPushButton" name="openButton">
-            <property name="toolTip">
-             <string>Ctrl+O</string>
-            </property>
-            <property name="text">
-             <string>Open...</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2" rowspan="2">
-           <widget class="QToolButton" name="forwardButton">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="toolTip">
-             <string notr="true">→</string>
-            </property>
-            <property name="text">
-             <string>&gt;</string>
-            </property>
-            <property name="arrowType">
-             <enum>Qt::RightArrow</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="saveButton">
-            <property name="toolTip">
-             <string notr="true">Ctrl+S</string>
-            </property>
-            <property name="text">
-             <string>Save...</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
         <item row="5" column="0">
          <widget class="QGroupBox" name="referenceGroupBox">
           <property name="title">
@@ -178,7 +116,7 @@
            <item row="1" column="1">
             <widget class="QPushButton" name="currentButton">
              <property name="toolTip">
-              <string notr="true">U</string>
+              <string notr="true"/>
              </property>
              <property name="text">
               <string>Use current</string>
@@ -188,7 +126,7 @@
            <item row="1" column="0">
             <widget class="QPushButton" name="referenceButton">
              <property name="toolTip">
-              <string notr="true">L</string>
+              <string notr="true"/>
              </property>
              <property name="text">
               <string>Load...</string>
@@ -244,10 +182,7 @@
               </sizepolicy>
              </property>
              <property name="toolTip">
-              <string>= (OFF)
-- (Substract)
-/ (Divide)
-R (Show reference)</string>
+              <string/>
              </property>
              <item>
               <property name="text">
@@ -274,185 +209,12 @@ R (Show reference)</string>
           </layout>
          </widget>
         </item>
-        <item row="7" column="0">
-         <spacer name="verticalSpacer">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>166</width>
-            <height>13</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="2" column="0">
-         <widget class="QGroupBox" name="scaleGroupBox">
-          <property name="title">
-           <string>Scale</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_3">
-           <item row="0" column="0" colspan="2">
-            <widget class="QComboBox" name="scaleComboBox">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="toolTip">
-              <string>A (Auto)
-C (Custom)
-M (Min:Max)
-7 (7 bit)
-8 (8 bit)
-9 (9 bit)
-0 (10 bit)
-1 (11 bit)
-2 (12 bit)
-3 (13 bit)
-4 (14 bit)
-5 (15 bit)
-6 (16 bit)</string>
-             </property>
-             <item>
-              <property name="text">
-               <string>Auto MIN:MAX</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Auto MAX</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Auto MAX (bits)</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Manual</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>7 bit</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>8 bit</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>9 bit</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>10 bit</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>11 bit</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>12 bit</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>13 bit</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>14 bit</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>15 bit</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>16 bit</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="1" column="0" colspan="2">
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-              <widget class="QSpinBox" name="offsetSpinBox">
-               <property name="toolTip">
-                <string>o (0)</string>
-               </property>
-               <property name="accelerated">
-                <bool>true</bool>
-               </property>
-               <property name="minimum">
-                <number>-1000000</number>
-               </property>
-               <property name="maximum">
-                <number>1000000</number>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="minMaxLabel">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="text">
-                <string>&lt;b&gt;:&lt;/b&gt;</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QSpinBox" name="cutoffSpinBox">
-               <property name="accelerated">
-                <bool>true</bool>
-               </property>
-               <property name="minimum">
-                <number>-1000000</number>
-               </property>
-               <property name="maximum">
-                <number>1000000</number>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
-        </item>
         <item row="4" column="0">
          <widget class="QGroupBox" name="analysisGroupBox">
           <property name="title">
            <string>Analysis</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
-           <item row="0" column="1">
-            <widget class="QPushButton" name="XCopyButton">
-             <property name="toolTip">
-              <string notr="true">Alt+X</string>
-             </property>
-             <property name="text">
-              <string>Copy</string>
-             </property>
-            </widget>
-           </item>
            <item row="1" column="0" colspan="2">
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
@@ -495,16 +257,6 @@ M (Min:Max)
               </widget>
              </item>
             </layout>
-           </item>
-           <item row="3" column="1">
-            <widget class="QPushButton" name="YCopyButton">
-             <property name="toolTip">
-              <string notr="true">Alt+Y</string>
-             </property>
-             <property name="text">
-              <string>Copy</string>
-             </property>
-            </widget>
            </item>
            <item row="6" column="0">
             <spacer name="verticalSpacer_2">
@@ -601,27 +353,27 @@ M (Min:Max)
              </property>
             </widget>
            </item>
-           <item row="7" column="0" colspan="2">
-            <widget class="QCheckBox" name="beamCheckBox">
-             <property name="toolTip">
-              <string>B</string>
-             </property>
+           <item row="8" column="0">
+            <widget class="QPushButton" name="FixOffsetButton">
              <property name="text">
-              <string>Beam size (D4σ)</string>
+              <string>Fix offset</string>
              </property>
             </widget>
            </item>
-           <item row="8" column="0">
+           <item row="8" column="1">
             <widget class="QPushButton" name="FixRangesButton">
              <property name="text">
               <string>Fix ranges</string>
              </property>
             </widget>
            </item>
-           <item row="8" column="1">
-            <widget class="QPushButton" name="FixOffsetButton">
+           <item row="7" column="0" colspan="2">
+            <widget class="QCheckBox" name="DCheckBox">
+             <property name="toolTip">
+              <string>D</string>
+             </property>
              <property name="text">
-              <string>Fix offset</string>
+              <string>D4σ</string>
              </property>
             </widget>
            </item>
@@ -739,6 +491,216 @@ M (Min:Max)
           </layout>
          </widget>
         </item>
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="gridLayout_5">
+          <item row="0" column="0" rowspan="2">
+           <widget class="QToolButton" name="backButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string notr="true">Previous frame</string>
+            </property>
+            <property name="text">
+             <string>&lt;</string>
+            </property>
+            <property name="arrowType">
+             <enum>Qt::LeftArrow</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QPushButton" name="openButton">
+            <property name="toolTip">
+             <string>Ctrl+O</string>
+            </property>
+            <property name="text">
+             <string>Open...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2" rowspan="2">
+           <widget class="QToolButton" name="forwardButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string notr="true">Next frame</string>
+            </property>
+            <property name="text">
+             <string>&gt;</string>
+            </property>
+            <property name="arrowType">
+             <enum>Qt::RightArrow</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="saveButton">
+            <property name="toolTip">
+             <string notr="true">Ctrl+S</string>
+            </property>
+            <property name="text">
+             <string>Save...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="7" column="0">
+         <spacer name="verticalSpacer">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>166</width>
+            <height>13</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="2" column="0">
+         <widget class="QGroupBox" name="scaleGroupBox">
+          <property name="title">
+           <string>Scale</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="0" colspan="2">
+            <widget class="QComboBox" name="scaleComboBox">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string/>
+             </property>
+             <item>
+              <property name="text">
+               <string>Auto MAX</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Manual</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Auto MIN:MAX</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Auto MAX (bits)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>MAX = 7 bit</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>MAX = 8 bit</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>MAX = 9 bit</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>MAX = 10 bit</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>MAX = 11 bit</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>MAX = 12 bit</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>MAX = 13 bit</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>MAX = 14 bit</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>MAX = 15 bit</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>MAX = 16 bit</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <widget class="QDoubleSpinBox" name="offsetSpinBox">
+               <property name="accelerated">
+                <bool>true</bool>
+               </property>
+               <property name="minimum">
+                <double>-1000000.000000000000000</double>
+               </property>
+               <property name="maximum">
+                <double>1000000.000000000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="minMaxLabel">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="text">
+                <string>&lt;b&gt;:&lt;/b&gt;</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="cutoffSpinBox">
+               <property name="accelerated">
+                <bool>true</bool>
+               </property>
+               <property name="minimum">
+                <number>-1000000</number>
+               </property>
+               <property name="maximum">
+                <number>1000000</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
        </layout>
       </widget>
      </widget>
@@ -810,14 +772,11 @@ M (Min:Max)
   <tabstop>saveButton</tabstop>
   <tabstop>forwardButton</tabstop>
   <tabstop>scaleComboBox</tabstop>
-  <tabstop>offsetSpinBox</tabstop>
   <tabstop>cutoffSpinBox</tabstop>
   <tabstop>XCheckBox</tabstop>
-  <tabstop>XCopyButton</tabstop>
   <tabstop>X1SpinBox</tabstop>
   <tabstop>X2SpinBox</tabstop>
   <tabstop>YCheckBox</tabstop>
-  <tabstop>YCopyButton</tabstop>
   <tabstop>Y1SpinBox</tabstop>
   <tabstop>Y2SpinBox</tabstop>
   <tabstop>referenceComboBox</tabstop>

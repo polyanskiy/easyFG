@@ -13,20 +13,21 @@ void MainWindow::UpdateImage()
     image = QImage(datawidth, dataheight, QImage::Format_Indexed8);
     SetColorTable();
 
-    for(i=0; i<datawidth; i++)
-	for(j=0; j<dataheight; j++){
-	    if(referenceComboBox->currentIndex()>0 && refloaded)
-            pixel = (int)((CorrectedArray[i][j]-offset)*255.0/(cutoff-offset)+0.5);
-	    else
-            pixel = (int)((DataArray[i][j]-offset)*255.0/(cutoff-offset)+0.5);
+    for(i=0; i<datawidth; i++){
+        for(j=0; j<dataheight; j++){
+            if(referenceComboBox->currentIndex()>0 && refloaded)
+                pixel = (int)((CorrectedArray[i][j]-offset)*255.0/(cutoff-offset)+0.5);
+            else
+                pixel = (int)((DataArray[i][j]-offset)*255.0/(cutoff-offset)+0.5);
 
-	    if(pixel>255)
-            pixel = 255;
-	    if(pixel<0)
-            pixel = 0;
+            if(pixel>255)
+                pixel = 255;
+            if(pixel<0)
+                pixel = 0;
 
-	    image.setPixel(i, j, pixel);
-	}
+            image.setPixel(i, j, pixel);
+        }
+    }
     pixmap->setPixmap(QPixmap::fromImage(image));
 }
 
@@ -56,18 +57,25 @@ void MainWindow::UpdateRanges()
     y2line->setLine(Y2SpinBox->value()+0.5, 0.5, Y2SpinBox->value()+0.5, dataheight-0.5);
 
     switch(scaleComboBox->currentIndex()){
-        case 0: // "Auto MIN:MAX"
+        case 0: // "Auto MAX"
+            cutoffSpinBox->setValue( referenceComboBox->currentIndex() == 0 ? datamax : correctedmax );
+            offsetSpinBox->setEnabled(true);
+            cutoffSpinBox->setEnabled(false);
+            FixOffsetButton->setEnabled(true);
+            break;
+        case 1: // "Manual"
+            offsetSpinBox->setEnabled(true);
+            cutoffSpinBox->setEnabled(true);
+            FixOffsetButton->setEnabled(true);
+            break;
+        case 2: // "Auto MIN:MAX"
             offsetSpinBox->setValue( referenceComboBox->currentIndex() == 0 ? datamin : correctedmin );
             cutoffSpinBox->setValue( referenceComboBox->currentIndex() == 0 ? datamax : correctedmax );
             offsetSpinBox->setEnabled(false);
             cutoffSpinBox->setEnabled(false);
+            FixOffsetButton->setEnabled(false);
             break;
-        case 1: // "Auto MAX"
-            cutoffSpinBox->setValue( referenceComboBox->currentIndex() == 0 ? datamax : correctedmax );
-            offsetSpinBox->setEnabled(true);
-            cutoffSpinBox->setEnabled(false);
-            break;
-        case 2: // "Auto MAX (bits)"
+        case 3: // "Auto MAX (bits)"
             if(datamax<=255)
                 cutoffSpinBox->setValue(255);
             if(datamax>255 && datamax<=511)
@@ -88,60 +96,67 @@ void MainWindow::UpdateRanges()
                 cutoffSpinBox->setValue(65535);
             offsetSpinBox->setEnabled(true);
             cutoffSpinBox->setEnabled(false);
-            break;
-        case 3: // "Manual"
-            offsetSpinBox->setEnabled(true);
-            cutoffSpinBox->setEnabled(true);
+            FixOffsetButton->setEnabled(true);
             break;
         case 4: // "7 bit"
             cutoffSpinBox->setValue(127);
             offsetSpinBox->setEnabled(true);
             cutoffSpinBox->setEnabled(false);
+            FixOffsetButton->setEnabled(true);
             break;
         case 5: // "8 bit"
             cutoffSpinBox->setValue(255);
             offsetSpinBox->setEnabled(true);
             cutoffSpinBox->setEnabled(false);
+            FixOffsetButton->setEnabled(true);
             break;
         case 6: // "9 bit"
             cutoffSpinBox->setValue(511);
             offsetSpinBox->setEnabled(true);
             cutoffSpinBox->setEnabled(false);
+            FixOffsetButton->setEnabled(true);
             break;
         case 7: // "10 bit"
             cutoffSpinBox->setValue(1023);
             offsetSpinBox->setEnabled(true);
             cutoffSpinBox->setEnabled(false);
+            FixOffsetButton->setEnabled(true);
             break;
         case 8: // "11 bit"
             cutoffSpinBox->setValue(2047);
             offsetSpinBox->setEnabled(true);
             cutoffSpinBox->setEnabled(false);
+            FixOffsetButton->setEnabled(true);
             break;
         case 9: // "12 bit"
             cutoffSpinBox->setValue(4095);
             offsetSpinBox->setEnabled(true);
             cutoffSpinBox->setEnabled(false);
+            FixOffsetButton->setEnabled(true);
             break;
         case 10: // "13 bit"
             cutoffSpinBox->setValue(8191);
             offsetSpinBox->setEnabled(true);
             cutoffSpinBox->setEnabled(false);
+            FixOffsetButton->setEnabled(true);
         break;
         case 11: // "14 bit"
             cutoffSpinBox->setValue(16383);
             offsetSpinBox->setEnabled(true);
             cutoffSpinBox->setEnabled(false);
+            FixOffsetButton->setEnabled(true);
             break;
         case 12: // "15 bit"
             cutoffSpinBox->setValue(32767);
             offsetSpinBox->setEnabled(true);
             cutoffSpinBox->setEnabled(false);
+            FixOffsetButton->setEnabled(true);
             break;
         case 13: // "16 bit"
             cutoffSpinBox->setValue(65535);
             offsetSpinBox->setEnabled(true);
             cutoffSpinBox->setEnabled(false);
+            FixOffsetButton->setEnabled(true);
             break;
     }
 
@@ -177,7 +192,7 @@ void MainWindow::UpdateStatus()
         }
     }
 
-    if(dataloaded && beamCheckBox->isChecked()){
+    if(dataloaded && DCheckBox->isChecked()){
         str.sprintf("     CENTR: %.1f;%.1f     DIA: %.1fx%.1f", centroidx, centroidy, sigmax*4, sigmay*4);
         status += str;
     }
@@ -191,16 +206,16 @@ void MainWindow::UpdateStatus()
 
 void MainWindow::UpdateVisibility()
 {
-    x1line->setVisible(XCheckBox->isChecked() || beamCheckBox->isChecked());
-    x2line->setVisible(XCheckBox->isChecked() || beamCheckBox->isChecked());
-    y1line->setVisible(YCheckBox->isChecked() || beamCheckBox->isChecked());
-    y2line->setVisible(YCheckBox->isChecked() || beamCheckBox->isChecked());
+    x1line->setVisible(XCheckBox->isChecked() || DCheckBox->isChecked());
+    x2line->setVisible(XCheckBox->isChecked() || DCheckBox->isChecked());
+    y1line->setVisible(YCheckBox->isChecked() || DCheckBox->isChecked());
+    y2line->setVisible(YCheckBox->isChecked() || DCheckBox->isChecked());
 
     xprojection->setVisible(XCheckBox->isChecked());
     yprojection->setVisible(YCheckBox->isChecked());
-    ellipse->setVisible(beamCheckBox->isChecked());
-    centerAline->setVisible(beamCheckBox->isChecked());
-    centerBline->setVisible(beamCheckBox->isChecked());
+    ellipse->setVisible(DCheckBox->isChecked());
+    centerAline->setVisible(DCheckBox->isChecked());
+    centerBline->setVisible(DCheckBox->isChecked());
 
     scaleGroupBox->setEnabled(dataloaded);
     colormapGroupBox->setEnabled(dataloaded);
@@ -223,14 +238,12 @@ void MainWindow::UpdateVisibility()
     xshiftSpinBox->setEnabled( xshiftLabel->isEnabled() );
     yshiftLabel->setEnabled( xshiftLabel->isEnabled() );
     yshiftSpinBox->setEnabled( xshiftLabel->isEnabled() );
-    X1SpinBox->setEnabled( XCheckBox->isChecked()||beamCheckBox->isChecked() );
-    X2SpinBox->setEnabled( XCheckBox->isChecked()||beamCheckBox->isChecked() );
-    minMaxLabel_2->setEnabled( XCheckBox->isChecked()||beamCheckBox->isChecked() );
-    XCopyButton->setEnabled( XCheckBox->isChecked() );
-    Y1SpinBox->setEnabled( YCheckBox->isChecked()||beamCheckBox->isChecked() );
-    Y2SpinBox->setEnabled( YCheckBox->isChecked()||beamCheckBox->isChecked() );
-    minMaxLabel_3->setEnabled( YCheckBox->isChecked()||beamCheckBox->isChecked() );
-    YCopyButton->setEnabled( YCheckBox->isChecked() );
-    FixRangesButton->setEnabled( beamCheckBox->isChecked() );
-    FixOffsetButton->setEnabled( beamCheckBox->isChecked() );
+    X1SpinBox->setEnabled( XCheckBox->isChecked()||DCheckBox->isChecked() );
+    X2SpinBox->setEnabled( XCheckBox->isChecked()||DCheckBox->isChecked() );
+    minMaxLabel_2->setEnabled( XCheckBox->isChecked()||DCheckBox->isChecked() );
+    Y1SpinBox->setEnabled( YCheckBox->isChecked()||DCheckBox->isChecked() );
+    Y2SpinBox->setEnabled( YCheckBox->isChecked()||DCheckBox->isChecked() );
+    minMaxLabel_3->setEnabled( YCheckBox->isChecked()||DCheckBox->isChecked() );
+    FixOffsetButton->setEnabled( (DCheckBox->isChecked() || (XCheckBox->isChecked()&&YCheckBox->isChecked())) && scaleComboBox->currentIndex()!=2);//disable if offset is automatic (auto min:max)
+    FixRangesButton->setEnabled( DCheckBox->isChecked() );
 }

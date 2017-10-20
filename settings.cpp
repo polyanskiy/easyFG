@@ -23,7 +23,7 @@ void MainWindow::SaveSession()
     settings.setValue("Y", YCheckBox->checkState());
     settings.setValue("Y_from", Y1SpinBox->value());
     settings.setValue("Y_to", Y2SpinBox->value());
-    settings.setValue("beam", beamCheckBox->checkState());
+    settings.setValue("D", DCheckBox->checkState());
     // window geometry
     if(!flag_fullscreen) // otherwise geometry is already saved
         settings.setValue("window_geometry", saveGeometry());
@@ -58,7 +58,7 @@ void MainWindow::RestoreSession()
     reffile = settings.value("reffile", QString()).toString();
     savefile = settings.value("savefile", QString()).toString();
     scaleComboBox->setCurrentIndex(settings.value("scale", 0).toInt());
-    offsetSpinBox->setValue(settings.value("offset", 0).toInt());
+    offsetSpinBox->setValue(settings.value("offset", 0).toFloat());
     cutoffSpinBox->setValue(settings.value("cutoff", 0).toInt());
     referenceComboBox->setCurrentIndex(settings.value("reference", 0).toInt());
     pseudocolorCheckBox->setCheckState((Qt::CheckState)settings.value("pseudocolor", 0).toInt());
@@ -72,5 +72,5 @@ void MainWindow::RestoreSession()
     YCheckBox->setCheckState((Qt::CheckState)settings.value("Y", 0).toInt());
     Y1SpinBox->setValue(settings.value("Y_from", 0).toInt());
     Y2SpinBox->setValue(settings.value("Y_to", MAX_WIDTH-1).toInt());
-    beamCheckBox->setCheckState((Qt::CheckState)settings.value("beam", 0).toInt());
+    DCheckBox->setCheckState((Qt::CheckState)settings.value("D", 0).toInt());
 }
