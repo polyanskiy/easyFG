@@ -12,11 +12,14 @@ void MainWindow::InitializeShortcuts()
     shortcut = new QShortcut(QKeySequence("ESC"),this);
     connect(shortcut, SIGNAL(activated()), this, SLOT(Shortcut_ESC()));
 
-    // setting two shortcuts for single button from GUI designer doesn't work: setting up here
+    // setting two shortcuts for single button in GUI designer doesn't work: setting up here
     shortcut = new QShortcut(QKeySequence("Ctrl++"),this);
     connect(shortcut, SIGNAL(activated()), this, SLOT(on_ZoomInButton_clicked()));
     shortcut = new QShortcut(QKeySequence("Ctrl+="),this);
     connect(shortcut, SIGNAL(activated()), this, SLOT(on_ZoomInButton_clicked()));
+    // "Ctrl+-" shortcut set in GUI designer doesn't work for all computers: setting up here
+    shortcut = new QShortcut(QKeySequence("Ctrl+-"),this);
+    connect(shortcut, SIGNAL(activated()), this, SLOT(on_ZoomOutButton_clicked()));
 }
 
 

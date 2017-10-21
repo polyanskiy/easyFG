@@ -17,7 +17,7 @@ memory.cpp \
 settings.cpp \
 analysis.cpp \
 save.cpp \
-    clipboard.cpp
+clipboard.cpp
 HEADERS += easyfg.h
 FORMS += mainwindow.ui
 RESOURCES += icon.qrc

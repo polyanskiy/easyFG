@@ -16,7 +16,6 @@
 #include <QMessageBox>
 #include <math.h>
 #include "tiffio.h"
-#include "hdf5.h"
 #include "hdf5_hl.h"
 #include "ui_mainwindow.h"
 
