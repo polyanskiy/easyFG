@@ -6,10 +6,10 @@
 
 ;General
 Name "easyFG"
-OutFile "easyFG_20171020.exe"
+OutFile "easyFG_20180318.exe"
 
 ;Default install path
-InstallDir "$PROGRAMFILES\easyFG"          ;default
+InstallDir "$PROGRAMFILES64\easyFG"          ;default
 InstallDirRegKey HKLM "Software\easyFG" "" ;if previous installation exists (overrides default)
 
 
@@ -52,28 +52,26 @@ Section "Section_01" Sec01
 
   ;Write files to installation directory
   SetOutPath "$INSTDIR"
-  File "release\easyfg.exe"
-  File "C:\Qt\5.9.2\mingw53_32\bin\libgcc_s_dw2-1.dll"
-  File "C:\Qt\5.9.2\mingw53_32\bin\libstdc++-6.dll"
-  File "C:\Qt\5.9.2\mingw53_32\bin\libwinpthread-1.dll"
-  File "C:\Qt\5.9.2\mingw53_32\bin\Qt5Core.dll"
-  File "C:\Qt\5.9.2\mingw53_32\bin\Qt5Gui.dll"
-  File "C:\Qt\5.9.2\mingw53_32\bin\Qt5Widgets.dll"
-  ;libtiff
-  File "C:\Program Files (x86)\GnuWin32\bin\jpeg62.dll"
-  File "C:\Program Files (x86)\GnuWin32\bin\libtiff3.dll"
-  File "C:\Program Files (x86)\GnuWin32\bin\zlib1.dll"
+  ;easyFG
+  File "easyfg.exe"
+  ;QT
+  File "C:\Qt\5.14.1\mingw73_64\bin\Qt5Core.dll"
+  File "C:\Qt\5.14.1\mingw73_64\bin\Qt5Gui.dll"
+  File "C:\Qt\5.14.1\mingw73_64\bin\Qt5Widgets.dll"
+  ;MinGW
+  File "C:\Qt\Tools\mingw730_64\bin\libgcc_s_seh-1.dll"
+  File "C:\Qt\Tools\mingw730_64\bin\libstdc++-6.dll"
+  File "C:\Qt\Tools\mingw730_64\bin\libwinpthread-1.dll"
   ;HDF5
-  File "C:\Program Files (x86)\HDF_Group\HDF5\1.10.1\bin\hdf5.dll"
-  File "C:\Program Files (x86)\HDF_Group\HDF5\1.10.1\bin\hdf5_hl.dll"
-  File "C:\Program Files (x86)\HDF_Group\HDF5\1.10.1\bin\zlib.dll"
-  File "C:\Program Files (x86)\HDF_Group\HDF5\1.10.1\bin\szip.dll"
+  File "C:\Program Files\HDF_Group\HDF5\1.12.0\bin\hdf5.dll"
+  File "C:\Program Files\HDF_Group\HDF5\1.12.0\bin\hdf5_hl.dll"
   
   SetOutPath "$INSTDIR\platforms"
-  File "C:\Qt\5.9.2\mingw53_32\plugins\platforms\qwindows.dll"  
+  File "C:\Qt\5.14.1\mingw73_64\plugins\platforms\qwindows.dll"  
   
   SetOutPath "$INSTDIR\imageformats"
-  File "C:\Qt\5.9.2\mingw53_32\plugins\imageformats\qjpeg.dll"
+  File "C:\Qt\5.14.1\mingw73_64\plugins\imageformats\qjpeg.dll"
+  File "C:\Qt\5.14.1\mingw73_64\plugins\imageformats\qtiff.dll"
   
   SetOutPath "$INSTDIR\src"
   File "easyfg.h"

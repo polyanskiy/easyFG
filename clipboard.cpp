@@ -75,8 +75,7 @@ void MainWindow::CopyD()
 {
     if(!dataloaded)
         return;
-    QString str = QString();
-    str.sprintf("%.1f\t%.1f",sigmax*4, sigmay*4);
+    QString str = QString::number(sigmax*4,'f', 1) + "\t" + QString::number(sigmay*4,'f', 1);
     QApplication::clipboard()->setText(str);
 }
 

@@ -141,43 +141,48 @@ void MainWindow::LoadTiff(QString filename, int **Array, int *width, int *height
     *width = 0;
     *height = 0;
 
-    // using libtiff libraty (Headers: <tiffio.h>; Linker:-ltiff)
-    TIFF* tif = TIFFOpen(filename.toUtf8(), "r");
+    //check if tiff is supported (list all supported file formats)
+    //QList<QByteArray> list = QImageReader::supportedImageFormats();
+    //QMessageBox().information(this, "Supported formats", list.join(","));
 
-    if(!tif) //cannot open the file
+    QFile f(filename);
+    if(!f.open(QIODevice::ReadOnly)){
+        QMessageBox().warning(this, "easyFG", "Cannot open file");
         return;
+    }
+    QByteArray ar(f.size(), ' ');
+    f.read(ar.data(), ar.size());
+    f.close();
 
-    uint16 bps;
-    if( TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bps)==0 || (bps!=8 && bps!=16) ){ // undefined or unsupported bps
-        TIFFClose(tif);
+    QImage img;
+    img.loadFromData(ar);
+    if (img.isNull()){
+        QMessageBox().warning(this, "easyFG", "File load error");
         return;
     }
 
-    // image width and height
-    TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, width);
-    TIFFGetField(tif, TIFFTAG_IMAGELENGTH, height);
+    //QMessageBox().information(this, "Image format", QString::number(img.format()));
+    if(img.format()!=QImage::Format_Grayscale8 && img.format()!=QImage::Format_Grayscale16){
+        QMessageBox().warning(this, "easyFG", "Unsupported TIFF file format");
+        return;
+    }
 
-    // allocate memory for an image line
-    tdata_t buf;
-    buf = _TIFFmalloc(TIFFScanlineSize(tif));
+    // read data
 
+    *width = img.width();
+    *height = img.height();
+
+    uchar* line;
     int i, j;
     for(j=0; j<*height; j++) {
-        TIFFReadScanline(tif, buf, j);
+        line = img.scanLine(j);
         for(i=0; i<*width; i++){
-            switch(bps){
-            case 8:
-                Array[i][j] = ((uint8*)buf)[i];
-                break;
-            case 16:
-                Array[i][j] = ((uint16*)buf)[i];
-                break;
-            }
+            if(img.format()==QImage::Format_Grayscale8) // 8-bit greyscale
+                Array[i][j] = ((int8_t*)line)[i];
+            else //16-bit greyscale
+                Array[i][j] = ((uint16_t*)line)[i];
         }
     }
-
-    _TIFFfree(buf);
-    TIFFClose(tif);
 }
 
 // Pyrocam III .RAW file
@@ -200,7 +205,7 @@ void MainWindow::LoadRaw(QString filename, int **Array, int *width, int *height)
     file.seek(16704);
 
     // read data
-    int16 tmp;
+    int16_t tmp;
     for(j=0; j<*height; j++) {
         for(i=0; i<*width; i++){
             dstream >> tmp;
@@ -219,7 +224,7 @@ void MainWindow::LoadBgdata(QString filename, int **Array, int *width, int *heig
     *width = 0;
     *height = 0;
     hid_t file;
-    int32 *data;
+    int32_t *data;
 
     file = H5Fopen(filename.toUtf8(), H5F_ACC_RDONLY, H5P_DEFAULT);
 
@@ -227,7 +232,7 @@ void MainWindow::LoadBgdata(QString filename, int **Array, int *width, int *heig
     H5LTread_dataset_int(file, "/BG_DATA/1/RAWFRAME/WIDTH", width);
     H5LTread_dataset_int(file, "/BG_DATA/1/RAWFRAME/HEIGHT", height);
 
-    data = (int32*)malloc(sizeof(int32) * (*width) * (*height));
+    data = (int32_t*)malloc(sizeof(int32_t) * (*width) * (*height));
 
     // read dataset
     H5LTread_dataset_int(file,"/BG_DATA/1/DATA",data);

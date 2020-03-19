@@ -27,13 +27,7 @@ CONFIG += qt
 QT += widgets
 
 win32 {
-INCLUDEPATH += "C:\\Program Files (x86)\\GnuWin32\\include"
-LIBS += "C:\\Program Files (x86)\\GnuWin32\\lib\\libtiff.lib"
-INCLUDEPATH += "C:\\Program Files (x86)\\HDF_Group\\HDF5\\1.10.1\\include"
-LIBS += "C:\\Program Files (x86)\\HDF_Group\\HDF5\\1.10.1\\lib\\hdf5.lib"
-LIBS += "C:\\Program Files (x86)\\HDF_Group\\HDF5\\1.10.1\\lib\\hdf5_hl.lib"
-}
-
-!win32 {
-QMAKE_LFLAGS += -ltiff
+INCLUDEPATH += "C:\\Program Files\\HDF_Group\\HDF5\\1.12.0\\include"
+LIBS += "C:\\Program Files\\HDF_Group\\HDF5\\1.12.0\\lib\\hdf5.lib"
+LIBS += "C:\\Program Files\\HDF_Group\\HDF5\\1.12.0\\lib\\hdf5_hl.lib"
 }

@@ -166,8 +166,6 @@ void MainWindow::UpdateRanges()
 
 void MainWindow::UpdateStatus()
 {
-    QString str;
-
     // WINDOW TITLE
     if(dataloaded)
         setWindowTitle("easyFG v." + version +":  " + datafile);
@@ -175,32 +173,33 @@ void MainWindow::UpdateStatus()
         setWindowTitle("easyFG v." + version);
 
     // STATUIS BAR
-    QString status = QString();
+    QString status_string = QString();
+    QTextStream status(&status_string);
     if(dataloaded){
-        status += ((QVariant)datawidth).toString() + "x" + ((QVariant)dataheight).toString();
-        if(zoom){
-            str.setNum(pow(2.0,zoom/2.0),'g', 3);
-            status += "     ZOOM: " + str;
-        }
+        status << datawidth << "x" << dataheight;
+        if(zoom)
+            status << "     ZOOM: " << QString::number(pow(2.0,zoom/2.0),'g',3);
         if(inimage){
-            status += "     POS: " + ((QVariant)scene.x).toString() + ";" + ((QVariant)scene.y).toString();
+            status << "     POS: " << scene.x << ";" << scene.y;
+            status << "     VAL: ";
             if(refloaded && referenceComboBox->currentIndex()>0)
-                str.setNum( CorrectedArray[scene.x][scene.y] );
+                status << CorrectedArray[scene.x][scene.y];
             else
-                str.setNum(DataArray[scene.x][scene.y]);
-            status += "     VAL: " + str;
+                status << DataArray[scene.x][scene.y];
         }
     }
 
     if(dataloaded && DCheckBox->isChecked()){
-        str.sprintf("     CENTR: %.1f;%.1f     DIA: %.1fx%.1f", centroidx, centroidy, sigmax*4, sigmay*4);
-        status += str;
+        status << "     CENTR: "
+               << QString::number(centroidx,'f',1) << "x" << QString::number(centroidy,'f',1)
+               << "     DIA: "
+               << QString::number(sigmax*4,'f',1) << "x" << QString::number(sigmay*4,'f',1);
     }
 
-    if( refloaded && referenceComboBox->currentIndex()>0 )
-        status += "     REF: " + reffile;
+    if(refloaded && referenceComboBox->currentIndex()>0)
+        status << "     REF: " << reffile;
 
-    myStatusBar->showMessage(status);
+    myStatusBar->showMessage(status_string);
 }
 
 
