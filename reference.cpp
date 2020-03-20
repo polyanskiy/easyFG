@@ -41,7 +41,32 @@ void MainWindow::CalculateCorrectedArray()
         }
     }
 
-    UpdateRanges();
+    //UpdateRanges();
+    UpdateScale();
+}
+
+
+void MainWindow::on_referenceButton_clicked()
+{
+    if(!QFile::exists(reffile))
+        reffile = datafile;
+    QFileDialog dialog(this, "Load reference file", reffile, "All supported (*.asc *.csv *.tiff *.tif *.sif *.raw);;ASCII (*.asc *.csv);;TIFF (*.tiff *.tif);;Andor SIF (*.sif);;Pyrocam RAW (*.raw)");
+    dialog.setFileMode(QFileDialog::ExistingFile);
+    dialog.setAcceptMode(QFileDialog::AcceptOpen);
+    if(dialog.exec()){
+        QStringList path = dialog.selectedFiles();
+        LoadRef(path[0]);
+    }
+}
+
+
+void MainWindow::on_currentButton_clicked()
+{
+    if(!QFile::exists(datafile))
+        return;
+
+    reffile = datafile;
+    LoadRef(reffile);
 }
 
 
@@ -52,10 +77,10 @@ void MainWindow::on_referenceComboBox_currentIndexChanged()
         if(referenceComboBox->currentIndex()>0) // reference ON
 	    CalculateCorrectedArray();
 
-	RedoAnalysis();
-        UpdateRanges();
-	UpdateImage();
-	UpdateScene();
+        RedoAnalysis();
+        UpdateScale();
+        UpdateImage();
+        UpdateScene();
         UpdateStatus();
     }
     UpdateVisibility();

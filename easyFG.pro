@@ -4,17 +4,17 @@
 TARGET = easyfg
 TEMPLATE = app
 SOURCES += main.cpp \
+    cursors.cpp \
+    image.cpp \
 mainwindow.cpp \
-buttons.cpp \
 reference.cpp \
 scale.cpp \
-colormap.cpp \
 scene.cpp \
 load.cpp \
+    session.cpp \
 update.cpp \
 shortcuts.cpp \
 memory.cpp \
-settings.cpp \
 analysis.cpp \
 save.cpp \
 clipboard.cpp

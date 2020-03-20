@@ -2,7 +2,7 @@
 ; Author: Mikhail N Polyanskiy (polyanskiy@bnl.gov)
 ; Brookhaven National Laboratory, USA
 
-!include "MUI.nsh"
+!include "MUI2.nsh"
 
 ;General
 Name "easyFG"

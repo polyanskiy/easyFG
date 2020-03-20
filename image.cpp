@@ -1,6 +1,39 @@
 #include "easyfg.h"
 
 
+
+void MainWindow::on_ZoomOutButton_clicked(){
+    if(zoom == -10)
+        return;
+    graphicsView->scale(pow(2, -0.5*zoom), pow(2, -0.5*zoom)); // unzoom
+    zoom--;
+    graphicsView->scale(pow(2, 0.5*zoom), pow(2, 0.5*zoom));   // zoom
+    UpdateStatus();
+    UpdateVisibility();
+}
+
+
+void MainWindow::on_ZoomInButton_clicked(){
+    if(zoom == 10)
+        return;
+    graphicsView->scale(pow(2, -0.5*zoom), pow(2, -0.5*zoom)); // unzoom
+    zoom++;
+    graphicsView->scale(pow(2, 0.5*zoom), pow(2, 0.5*zoom));   // zoom
+    UpdateStatus();
+    UpdateVisibility();
+}
+
+
+void MainWindow::on_UnzoomButton_clicked(){
+    if(zoom == 0)
+        return;
+    graphicsView->scale(pow(2,-0.5*zoom), pow(2,-0.5*zoom)); // unzoom
+    zoom = 0;
+    UpdateStatus();
+    UpdateVisibility();
+}
+
+
 void MainWindow::on_pseudocolorCheckBox_stateChanged()
 {
     if(dataloaded){
@@ -21,7 +54,6 @@ void MainWindow::on_invertedCheckBox_stateChanged()
         scaleLabel->setPixmap(QPixmap::fromImage(scale));
     }
 }
-
 
 void MainWindow::SetColorTable()
 {

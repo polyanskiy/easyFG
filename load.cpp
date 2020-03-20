@@ -309,10 +309,11 @@ void MainWindow::LoadData(QString path)
         referenceComboBox->setCurrentIndex(0); // switch to "OFF"
 
     if(refloaded && referenceComboBox->currentIndex()>0)
-	CalculateCorrectedArray(); // this updates ranges too
+        CalculateCorrectedArray(); // this updates ranges too
     else
-	UpdateRanges();
+        UpdateRanges();
 
+    UpdateScale();
     UpdateImage();
     RedoAnalysis();
     UpdateVisibility();
@@ -359,12 +360,12 @@ void MainWindow::LoadRef(QString path)
             refaverage += RefArray[i][j];
     refaverage /= refwidth*refheight;
 
-    if(dataloaded && referenceComboBox->currentIndex()>0)
-    {
-	CalculateCorrectedArray();
-	UpdateImage();
-	RedoAnalysis();
-	UpdateScene();
+    if(dataloaded && referenceComboBox->currentIndex()>0){
+        CalculateCorrectedArray();
+        UpdateImage();
+        UpdateScale();
+        RedoAnalysis();
+        UpdateScene();
         UpdateStatus();
     }
 

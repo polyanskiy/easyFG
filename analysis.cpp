@@ -13,6 +13,11 @@ void MainWindow::RedoAnalysis()
     else
         yprojection->setPath(QPainterPath());
 
+    if(RCheckBox->isChecked())
+        CalculateR();
+    //else
+    //    rprojection->setPath(QPainterPath());
+
     if(DCheckBox->isChecked())
         CalculateBeam();
     else
@@ -24,11 +29,6 @@ void MainWindow::on_XCheckBox_stateChanged()
 {
     if(!dataloaded)
         return;
-
-    if(XCheckBox->isChecked() || DCheckBox->isChecked()){
-        x1line->setLine(0.5, X1SpinBox->value()+0.5, datawidth-0.5, X1SpinBox->value()+0.5);
-        x2line->setLine(0.5, X2SpinBox->value()+0.5, datawidth-0.5, X2SpinBox->value()+0.5);
-    }
 
     if(XCheckBox->isChecked())
         CalculateX();
@@ -43,13 +43,21 @@ void MainWindow::on_YCheckBox_stateChanged()
     if(!dataloaded)
         return;
 
-    if(YCheckBox->isChecked() || DCheckBox->isChecked()) {
-        y1line->setLine(Y1SpinBox->value()+0.5, 0.5, Y1SpinBox->value()+0.5, dataheight-0.5);
-        y2line->setLine(Y2SpinBox->value()+0.5, 0.5, Y2SpinBox->value()+0.5, dataheight-0.5);
-    }
-
     if(YCheckBox->isChecked())
         CalculateY();
+
+    UpdateVisibility();
+    UpdateScene();
+}
+
+
+void MainWindow::on_RCheckBox_stateChanged()
+{
+    if(!dataloaded)
+        return;
+
+    if(RCheckBox->isChecked())
+        CalculateR();
 
     UpdateVisibility();
     UpdateScene();
@@ -61,12 +69,12 @@ void MainWindow::on_DCheckBox_stateChanged()
     if(!dataloaded)
         return;
 
-    if(DCheckBox->isChecked()){
-        x1line->setLine(0.5, X1SpinBox->value()+0.5, datawidth-0.5, X1SpinBox->value()+0.5);
-        x2line->setLine(0.5, X2SpinBox->value()+0.5, datawidth-0.5, X2SpinBox->value()+0.5);
-        y1line->setLine(Y1SpinBox->value(), 0.5, Y1SpinBox->value(), dataheight-0.5);
-        y2line->setLine(Y2SpinBox->value(), 0.5, Y2SpinBox->value(), dataheight-0.5);
-    }
+    /*if(DCheckBox->isChecked()){
+        h1line->setLine(0.5, H1SpinBox->value()+0.5, datawidth-0.5, H1SpinBox->value()+0.5);
+        h2line->setLine(0.5, H2SpinBox->value()+0.5, datawidth-0.5, H2SpinBox->value()+0.5);
+        v1line->setLine(V1SpinBox->value(), 0.5, V1SpinBox->value(), dataheight-0.5);
+        v2line->setLine(V2SpinBox->value(), 0.5, V2SpinBox->value(), dataheight-0.5);
+    }*/
 
     if(DCheckBox->isChecked())
         CalculateBeam();
@@ -77,139 +85,7 @@ void MainWindow::on_DCheckBox_stateChanged()
 }
 
 
-void MainWindow::on_X1SpinBox_valueChanged()
-{
-    if(!( (XCheckBox->isChecked()||DCheckBox->isChecked()) && dataloaded ))
-        return;
 
-    x1line->setLine(0.5, X1SpinBox->value()+0.5, datawidth-0.5, X1SpinBox->value()+0.5);
-
-    if(XCheckBox->isChecked())
-        CalculateX();
-    if(DCheckBox->isChecked()){
-        CalculateBeam();
-        UpdateStatus();
-    }
-
-    UpdateScene();
-}
-
-
-void MainWindow::on_X2SpinBox_valueChanged()
-{
-    if(!( (XCheckBox->isChecked()||DCheckBox->isChecked()) && dataloaded ))
-        return;
-
-    x2line->setLine(0.5, X2SpinBox->value()+0.5, datawidth-0.5, X2SpinBox->value()+0.5);
-
-    if(XCheckBox->isChecked())
-        CalculateX();
-    if(DCheckBox->isChecked()){
-        CalculateBeam();
-        UpdateStatus();
-    }
-
-    UpdateScene();
-}
-
-
-void MainWindow::on_Y1SpinBox_valueChanged()
-{
-    if(!( (YCheckBox->isChecked()||DCheckBox->isChecked()) && dataloaded ))
-        return;
-
-    y1line->setLine(Y1SpinBox->value()+0.5, 0.5, Y1SpinBox->value()+0.5, dataheight-0.5);
-
-    if(YCheckBox->isChecked())
-        CalculateY();
-    if(DCheckBox->isChecked()){
-        CalculateBeam();
-        UpdateStatus();
-    }
-
-    UpdateScene();
-}
-
-
-void MainWindow::on_Y2SpinBox_valueChanged()
-{
-    if(!( (YCheckBox->isChecked()||DCheckBox->isChecked()) && dataloaded ))
-        return;
-
-    y2line->setLine(Y2SpinBox->value()+0.5, 0.5, Y2SpinBox->value()+0.5, dataheight-0.5);
-
-    if(YCheckBox->isChecked())
-        CalculateY();
-    if(DCheckBox->isChecked()){
-        CalculateBeam();
-        UpdateStatus();
-    }
-
-    UpdateScene();
-}
-
-
-void MainWindow::on_FixRangesButton_clicked()
-{
-    if(!dataloaded)
-        return;
-
-    X1SpinBox->setValue(round(centroidy-sigmay*6));
-    X2SpinBox->setValue(round(centroidy+sigmay*6));
-    Y1SpinBox->setValue(round(centroidx-sigmax*6));
-    Y2SpinBox->setValue(round(centroidx+sigmax*6));
-
-    UpdateRanges();
-
-    CalculateBeam();
-    if(XCheckBox->isChecked())
-        CalculateX();
-    if(YCheckBox->isChecked())
-        CalculateY();
-
-    UpdateScene();
-    UpdateStatus();
-}
-
-void MainWindow::on_FixOffsetButton_clicked()
-{
-    if(!dataloaded)
-        return;
-
-    int i,j;
-    int count=0;
-    float offset=0;
-
-    int ymin = (X1SpinBox->value() < X2SpinBox->value()) ? X1SpinBox->value() : X2SpinBox->value();
-    int ymax = (X1SpinBox->value() < X2SpinBox->value()) ? X2SpinBox->value() : X1SpinBox->value();
-    int xmin = (Y1SpinBox->value() < Y2SpinBox->value()) ? Y1SpinBox->value() : Y2SpinBox->value();
-    int xmax = (Y1SpinBox->value() < Y2SpinBox->value()) ? Y2SpinBox->value() : Y1SpinBox->value();
-
-    for(i=0; i<datawidth; i++){
-        for(j=0; j<dataheight; j++) {
-            if(i<xmin||i>xmax||j<ymin||j>ymax){
-                count++;
-                if(referenceComboBox->currentIndex()>0 && refloaded)
-                    offset += CorrectedArray[i][j];
-                else
-                    offset += DataArray[i][j];
-            }
-        }
-    }
-    if(count)
-        offset /= count;
-
-    offsetSpinBox->setValue(offset);
-
-    CalculateBeam();
-    if(XCheckBox->isChecked())
-        CalculateX();
-    if(YCheckBox->isChecked())
-        CalculateY();
-
-    UpdateScene();
-    UpdateStatus();
-}
 
 void MainWindow::CalculateX()
 {
@@ -217,9 +93,9 @@ void MainWindow::CalculateX()
         return;
 
     float pixel;
-    float offset = offsetSpinBox->value();
-    int min = (X1SpinBox->value() < X2SpinBox->value()) ? X1SpinBox->value() : X2SpinBox->value();
-    int max = (X1SpinBox->value() < X2SpinBox->value()) ? X2SpinBox->value() : X1SpinBox->value();
+    float offset = minSpinBox->value();
+    int min = (H1SpinBox->value() < H2SpinBox->value()) ? H1SpinBox->value() : H2SpinBox->value();
+    int max = (H1SpinBox->value() < H2SpinBox->value()) ? H2SpinBox->value() : H1SpinBox->value();
 
     float xmax = 0;
     for(int i=0; i<datawidth; i++){
@@ -258,9 +134,9 @@ void MainWindow::CalculateY()
         return;
 
     float pixel;
-    float offset = offsetSpinBox->value();
-    int min = (Y1SpinBox->value() < Y2SpinBox->value()) ? Y1SpinBox->value() : Y2SpinBox->value();
-    int max = (Y1SpinBox->value() < Y2SpinBox->value()) ? Y2SpinBox->value() : Y1SpinBox->value();
+    float offset = minSpinBox->value();
+    int min = (V1SpinBox->value() < V2SpinBox->value()) ? V1SpinBox->value() : V2SpinBox->value();
+    int max = (V1SpinBox->value() < V2SpinBox->value()) ? V2SpinBox->value() : V1SpinBox->value();
 
     float ymax = 0;
     for(int j=0; j<dataheight; j++){
@@ -293,15 +169,22 @@ void MainWindow::CalculateY()
 }
 
 
+void MainWindow::CalculateR()
+{
+    if(!dataloaded)
+        return;
+}
+
+
 void MainWindow::CalculateBeam()
 {
     if(!dataloaded)
 	return;
 
-    int ymin = (X1SpinBox->value() < X2SpinBox->value()) ? X1SpinBox->value() : X2SpinBox->value();
-    int ymax = (X1SpinBox->value() < X2SpinBox->value()) ? X2SpinBox->value() : X1SpinBox->value();
-    int xmin = (Y1SpinBox->value() < Y2SpinBox->value()) ? Y1SpinBox->value() : Y2SpinBox->value();
-    int xmax = (Y1SpinBox->value() < Y2SpinBox->value()) ? Y2SpinBox->value() : Y1SpinBox->value();
+    int ymin = (H1SpinBox->value() < H2SpinBox->value()) ? H1SpinBox->value() : H2SpinBox->value();
+    int ymax = (H1SpinBox->value() < H2SpinBox->value()) ? H2SpinBox->value() : H1SpinBox->value();
+    int xmin = (V1SpinBox->value() < V2SpinBox->value()) ? V1SpinBox->value() : V2SpinBox->value();
+    int xmax = (V1SpinBox->value() < V2SpinBox->value()) ? V2SpinBox->value() : V1SpinBox->value();
 
     int i, j;
     float horiz[datawidth], vert[dataheight];
@@ -315,7 +198,7 @@ void MainWindow::CalculateBeam()
     for(j=0; j<dataheight; j++)
         vert[j] = 0;
 
-    offset = offsetSpinBox->value();
+    offset = minSpinBox->value();
 
     // horizontal and vertical integration
     for(i=xmin; i<=xmax; i++){

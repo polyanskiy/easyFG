@@ -43,13 +43,13 @@ void MainWindow::mouseMovedOnScene()
 
     if(inimage){
         setCursor(Qt::CrossCursor);
-        if(( (YCheckBox->isChecked()||DCheckBox->isChecked()) && x <= Y2SpinBox->value()+2/pow(2,zoom/2) && x >= Y2SpinBox->value()-2/pow(2,zoom/2)) || y2drag)
+        if(( VCheckBox->isChecked() && x <= cursorv2+2 && x >= cursorv2-2) || v2drag)
             setCursor(Qt::SplitHCursor);
-        if(( (YCheckBox->isChecked()||DCheckBox->isChecked()) && x <= Y1SpinBox->value()+2/pow(2,zoom/2) && x >= Y1SpinBox->value()-2/pow(2,zoom/2)) || y1drag)
+        if(( VCheckBox->isChecked() && x <= cursorv1+2 && x >= cursorv1-2) || v1drag)
             setCursor(Qt::SplitHCursor);
-        if(( (XCheckBox->isChecked()||DCheckBox->isChecked()) && y <= X2SpinBox->value()+2/pow(2,zoom/2) && y >= X2SpinBox->value()-2/pow(2,zoom/2)) || x2drag)
+        if(( HCheckBox->isChecked() && y <= cursorh2+2 && y >= cursorh2-2) || h2drag)
             setCursor(Qt::SplitVCursor);
-        if(( (XCheckBox->isChecked()||DCheckBox->isChecked()) && y <= X1SpinBox->value()+2/pow(2,zoom/2) && y >= X1SpinBox->value()-2/pow(2,zoom/2)) || x1drag)
+        if(( HCheckBox->isChecked() && y <= cursorh1+2 && y >= cursorh1-2) || h1drag)
             setCursor(Qt::SplitVCursor);
     }
     else
@@ -64,20 +64,20 @@ void MainWindow::mouseMovedOnScene()
     if(y < 0)
         y = 0;
 
-    if(x1drag){
-        x1line->setLine(0.5, y+0.5, datawidth-0.5, y+0.5);
+    if(h1drag){
+        h1line->setLine(0.5, y+0.5, datawidth-0.5, y+0.5);
         UpdateScene();
     }
-    if(x2drag){
-        x2line->setLine(0.5, y+0.5, datawidth-0.5, y+0.5);
+    if(h2drag){
+        h2line->setLine(0.5, y+0.5, datawidth-0.5, y+0.5);
         UpdateScene();
     }
-    if(y1drag){
-        y1line->setLine(x+0.5, 0.5, x+0.5, dataheight-0.5);
+    if(v1drag){
+        v1line->setLine(x+0.5, 0.5, x+0.5, dataheight-0.5);
         UpdateScene();
     }
-    if(y2drag){
-        y2line->setLine(x+0.5, 0.5, x+0.5, dataheight-0.5);
+    if(v2drag){
+        v2line->setLine(x+0.5, 0.5, x+0.5, dataheight-0.5);
         UpdateScene();
     }
 
@@ -87,47 +87,55 @@ void MainWindow::mouseMovedOnScene()
 
 void MainWindow::mousePressedOnScene()
 {
-    if( (YCheckBox->isChecked()||DCheckBox->isChecked()) && scene.x <= Y2SpinBox->value()+2/pow(2,zoom/2) && scene.x >= Y2SpinBox->value()-2/pow(2,zoom/2)){
-        x1drag=false;
-        x2drag=false;
-        y1drag=false;
-        y2drag=true;
+    if( VCheckBox->isChecked() && scene.x <= cursorv2+2 && scene.x >= cursorv2-2){
+        h1drag=false;
+        h2drag=false;
+        v1drag=false;
+        v2drag=true;
     }
-    if( (YCheckBox->isChecked()||DCheckBox->isChecked()) && scene.x <= Y1SpinBox->value()+2/pow(2,zoom/2) && scene.x >= Y1SpinBox->value()-2/pow(2,zoom/2)){
-        x1drag=false;
-        x2drag=false;
-        y1drag=true;
-        y2drag=false;
+    if( VCheckBox->isChecked() && scene.x <= cursorv1+2 && scene.x >= cursorv1-2){
+        h1drag=false;
+        h2drag=false;
+        v1drag=true;
+        v2drag=false;
     }
-    if( (XCheckBox->isChecked()||DCheckBox->isChecked()) && scene.y <= X2SpinBox->value()+2/pow(2,zoom/2) && scene.y >= X2SpinBox->value()-2/pow(2,zoom/2)){
-        x1drag=false;
-        x2drag=true;
-        y1drag=false;
-        y2drag=false;
+    if( HCheckBox->isChecked() && scene.y <= cursorh2+2 && scene.y >= cursorh2-2){
+        h1drag=false;
+        h2drag=true;
+        v1drag=false;
+        v2drag=false;
     }
-    if( (XCheckBox->isChecked()||DCheckBox->isChecked()) && scene.y <= X1SpinBox->value()+2/pow(2,zoom/2) && scene.y >= X1SpinBox->value()-2/pow(2,zoom/2)){
-        x1drag=true;
-        x2drag=false;
-        y1drag=false;
-        y2drag=false;
+    if( HCheckBox->isChecked() && scene.y <= cursorh1+2 && scene.y >= cursorh1-2){
+        h1drag=true;
+        h2drag=false;
+        v1drag=false;
+        v2drag=false;
     }
 }
 
 
 void MainWindow::mouseReleasedOnScene()
 {
-    if(x1drag)
-        X1SpinBox->setValue(scene.y);
-    if(x2drag)
-        X2SpinBox->setValue(scene.y);
-    if(y1drag)
-        Y1SpinBox->setValue(scene.x);
-    if(y2drag)
-        Y2SpinBox->setValue(scene.x);
-    x1drag=false;
-    x2drag=false;
-    y1drag=false;
-    y2drag=false;
+    if(h1drag){
+        cursorh1 = scene.y;
+        H1SpinBox->setValue(scene.y);
+    }
+    if(h2drag){
+        cursorh2 = scene.y;
+        H2SpinBox->setValue(scene.y);
+    }
+    if(v1drag){
+        cursorv1 = scene.x;
+        V1SpinBox->setValue(scene.x);
+    }
+    if(v2drag){
+        cursorv2 = scene.x;
+        V2SpinBox->setValue(scene.x);
+    }
+    h1drag=false;
+    h2drag=false;
+    v1drag=false;
+    v2drag=false;
 }
 
 

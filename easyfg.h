@@ -55,7 +55,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindowClass
         MyScene scene;
         QImage image, scale;
         QGraphicsPixmapItem *pixmap;
-        QGraphicsLineItem *x1line, *x2line, *y1line, *y2line, *centerAline, *centerBline;
+        QGraphicsLineItem *h1line, *h2line, *v1line, *v2line, *centerAline, *centerBline;
         QGraphicsEllipseItem *ellipse;
         QGraphicsPathItem *xprojection, *yprojection;
         QString reffile, savefile;
@@ -64,16 +64,20 @@ class MainWindow : public QMainWindow, public Ui::MainWindowClass
         float *X, *Y;
         int datawidth, dataheight, refwidth, refheight;
         int datamin, datamax, correctedmin, correctedmax;
+        int cursorh1, cursorh2, cursorv1, cursorv2;
         float centroidx, centroidy, sigmax, sigmay;
         bool dataloaded, refloaded;
         float refaverage;
-        bool inimage, x1drag, x2drag, y1drag, y2drag;
+        bool inimage, h1drag, h2drag, v1drag, v2drag;
         int zoom;
 
-        void AllocateMemory(), ClearMemory();
+        // session.cpp
         void SaveSession(), RestoreSession();
+        // shortcuts.cpp
         void InitializeShortcuts();
-        void SetColorTable();
+        // memory.cpp
+        void AllocateMemory(), ClearMemory();
+        // load.cpp
         void LoadData(QString);
         void LoadRef(QString);
         void LoadAscii(QString, int**, int*, int*);
@@ -81,52 +85,77 @@ class MainWindow : public QMainWindow, public Ui::MainWindowClass
         void LoadTiff(QString, int**, int*, int*);
         void LoadRaw(QString, int**, int*, int*);
         void LoadBgdata(QString, int**, int*, int*);
+        // save.cpp
         void SaveAscii(QString, int**);
         void CalculateCorrectedArray();
-        void CalculateX(), CalculateY(), CalculateBeam();
+        // update.cpp
+        void UpdateImage(), UpdateScale(), UpdateScene(), UpdateStatus(), UpdateVisibility(), UpdateRanges();
+        // clipboard.cpp
+        void CopyImage(), CopyX(), CopyY(), CopyD();
+        // image.cpp
+        void SetColorTable();
+        // scale.cpp
+        void CalculateBackground();
+        // analysis.cpp
+        void CalculateX(), CalculateY(), CalculateR(), CalculateBeam();
         void RedoAnalysis();
-        void UpdateImage(), UpdateScene(), UpdateStatus(), UpdateVisibility(), UpdateRanges();
 
     private slots:
-        void Shortcut_F11();
-        void Shortcut_ESC();
+        // mainwindow.cpp
         void on_openButton_clicked();
         void on_backButton_clicked();
         void on_forwardButton_clicked();
         void on_saveButton_clicked();
-        void on_scaleComboBox_currentIndexChanged();
-        void on_offsetSpinBox_valueChanged();
-        void on_cutoffSpinBox_valueChanged();
-        void on_referenceButton_clicked();
-        void on_currentButton_clicked();
-        void on_referenceComboBox_currentIndexChanged();
+        void on_hideSidebarButton_clicked();
+
+        // image.cpp
         void on_pseudocolorCheckBox_stateChanged();
         void on_invertedCheckBox_stateChanged();
         void on_ZoomInButton_clicked();
         void on_ZoomOutButton_clicked();
         void on_UnzoomButton_clicked();
+
+        // scale.cpp
+        void on_minSpinBox_valueChanged();
+        void on_minComboBox_currentIndexChanged();
+        void on_maxSpinBox_valueChanged();
+        void on_maxComboBox_currentIndexChanged();
+
+        // cursors.cpp
+        void on_HCheckBox_stateChanged();
+        void on_H1SpinBox_valueChanged();
+        void on_H2SpinBox_valueChanged();
+        void on_VCheckBox_stateChanged();
+        void on_V1SpinBox_valueChanged();
+        void on_V2SpinBox_valueChanged();
+        void on_CursorsButton_clicked();
+
+        // analysis.cpp
         void on_XCheckBox_stateChanged();
-        void on_X1SpinBox_valueChanged();
-        void on_X2SpinBox_valueChanged();
         void on_YCheckBox_stateChanged();
-        void on_Y1SpinBox_valueChanged();
-        void on_Y2SpinBox_valueChanged();
+        void on_DCheckBox_stateChanged();
+        void on_RCheckBox_stateChanged();
+
+        // reference.cpp
+        void on_referenceButton_clicked();
+        void on_currentButton_clicked();
+        void on_referenceComboBox_currentIndexChanged();
         void on_xshiftSpinBox_valueChanged();
         void on_yshiftSpinBox_valueChanged();
-        void on_DCheckBox_stateChanged();
-        void on_FixRangesButton_clicked();
-        void on_FixOffsetButton_clicked();
-        void on_graphicsView_customContextMenuRequested();
-        void on_scaleLabel_customContextMenuRequested();
-        void on_hideSidebarButton_clicked();
+
+        // scene.cpp
         void mouseMovedOnScene();
         void mousePressedOnScene();
         void mouseReleasedOnScene();
         void mouseLeftScene();
-        void CopyImage();
-        void CopyX();
-        void CopyY();
-        void CopyD();
+
+        // shortcuts.cpp
+        void Shortcut_F11();
+        void Shortcut_ESC();
+
+        // clipboard.cpp
+        void on_graphicsView_customContextMenuRequested();
+        void on_scaleLabel_customContextMenuRequested();
 };
 
 
