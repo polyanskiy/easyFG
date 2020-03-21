@@ -21,6 +21,7 @@
 
 #define MAX_WIDTH 2048
 #define MAX_HEIGHT 2048
+//#define MAX_R 2897 // sqrt(2048^2+2048^2)
 
 
 class MyScene : public QGraphicsScene
@@ -57,11 +58,11 @@ class MainWindow : public QMainWindow, public Ui::MainWindowClass
         QGraphicsPixmapItem *pixmap;
         QGraphicsLineItem *h1line, *h2line, *v1line, *v2line, *centerAline, *centerBline;
         QGraphicsEllipseItem *ellipse;
-        QGraphicsPathItem *xprojection, *yprojection;
+        QGraphicsPathItem *xprojection, *yprojection, *rprojection;
         QString reffile, savefile;
         bool flag_fullscreen;
         int **DataArray, **RefArray, **CorrectedArray;
-        float *X, *Y;
+        float *X, *Y, *R;
         int datawidth, dataheight, refwidth, refheight;
         int datamin, datamax, correctedmin, correctedmax;
         int cursorh1, cursorh2, cursorv1, cursorv2;
@@ -71,12 +72,27 @@ class MainWindow : public QMainWindow, public Ui::MainWindowClass
         bool inimage, h1drag, h2drag, v1drag, v2drag;
         int zoom;
 
-        // session.cpp
-        void SaveSession(), RestoreSession();
-        // shortcuts.cpp
-        void InitializeShortcuts();
-        // memory.cpp
-        void AllocateMemory(), ClearMemory();
+        // clipboard.cpp
+
+        // gui0_mainwindow.cpp
+        void UpdateStatus();
+        void UpdateVisibility();
+        // gui1_image.cpp
+        void SetColorTable();
+        void UpdateImage();
+        // gui2_scale.cpp
+        void CalculateBackground();
+        void UpdateScale();
+        // gui3_cursors.cpp
+        void UpdateCursors();
+        // gui4_analysis.cpp
+        void CalculateX();
+        void CalculateY();
+        void CalculateR();
+        void CalculateBeam();
+        void RedoAnalysis();
+        // gui5_scene.cpp
+        void UpdateScene();
         // load.cpp
         void LoadData(QString);
         void LoadRef(QString);
@@ -85,20 +101,16 @@ class MainWindow : public QMainWindow, public Ui::MainWindowClass
         void LoadTiff(QString, int**, int*, int*);
         void LoadRaw(QString, int**, int*, int*);
         void LoadBgdata(QString, int**, int*, int*);
+        // memory.cpp
+        void AllocateMemory();
+        void ClearMemory();
         // save.cpp
         void SaveAscii(QString, int**);
         void CalculateCorrectedArray();
-        // update.cpp
-        void UpdateImage(), UpdateScale(), UpdateScene(), UpdateStatus(), UpdateVisibility(), UpdateRanges();
-        // clipboard.cpp
-        void CopyImage(), CopyX(), CopyY(), CopyD();
-        // image.cpp
-        void SetColorTable();
-        // scale.cpp
-        void CalculateBackground();
-        // analysis.cpp
-        void CalculateX(), CalculateY(), CalculateR(), CalculateBeam();
-        void RedoAnalysis();
+        // session.cpp
+        void SaveSession(), RestoreSession();
+        // shortcuts.cpp
+        void InitializeShortcuts();
 
     private slots:
         // mainwindow.cpp
@@ -155,7 +167,11 @@ class MainWindow : public QMainWindow, public Ui::MainWindowClass
 
         // clipboard.cpp
         void on_graphicsView_customContextMenuRequested();
-        void on_scaleLabel_customContextMenuRequested();
+        void on_scaleLabel_customContextMenuRequested();void CopyImage();
+        void CopyX();
+        void CopyY();
+        void CopyR();
+        void CopyD();
 };
 
 

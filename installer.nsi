@@ -6,7 +6,7 @@
 
 ;General
 Name "easyFG"
-OutFile "easyFG_20180318.exe"
+OutFile "easyFG_20180320.exe"
 
 ;Default install path
 InstallDir "$PROGRAMFILES64\easyFG"          ;default
@@ -75,20 +75,20 @@ Section "Section_01" Sec01
   
   SetOutPath "$INSTDIR\src"
   File "easyfg.h"
-  File "analysis.cpp"
-  File "buttons.cpp"
-  File "colormap.cpp"
+  File "clipboard.cpp"
+  File "gui0_mainwindow.cpp"
+  File "gui1_image.cpp"
+  File "gui2_scale.cpp"
+  File "gui3_cursors.cpp"
+  File "gui4_analysis.cpp"
+  File "gui5_reference.cpp"
+  File "gui6_scene.cpp"
   File "load.cpp"
   File "main.cpp"
-  File "mainwindow.cpp"
   File "memory.cpp"
-  File "reference.cpp"
   File "save.cpp"
-  File "scale.cpp"
-  File "scene.cpp"
-  File "settings.cpp"
+  File "session.cpp"
   File "shortcuts.cpp"
-  File "update.cpp"
   File "mainwindow.ui"
   File "icon.rc"
   File "icon.qrc"

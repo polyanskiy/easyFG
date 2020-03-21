@@ -14,6 +14,8 @@ void MainWindow::AllocateMemory()
     }
     X = (float*)malloc(MAX_WIDTH*sizeof(float));
     Y = (float*)malloc(MAX_HEIGHT*sizeof(float));
+    R = (float*)malloc((int)ceil(sqrt(pow(MAX_WIDTH,2)+pow(MAX_HEIGHT,2)))*sizeof(float));
+    //R = (float*)malloc(MAX_R*sizeof(float));
 }
 
 
@@ -30,4 +32,5 @@ void MainWindow::ClearMemory()
     free(CorrectedArray);
     free(X);
     free(Y);
+    free(R);
 }

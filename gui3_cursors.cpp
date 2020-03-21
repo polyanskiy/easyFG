@@ -23,9 +23,14 @@ void MainWindow::on_HCheckBox_stateChanged()
 
     if(XCheckBox->isChecked())
         CalculateX();
+    if(RCheckBox->isChecked())
+        CalculateR();
+    if(DCheckBox->isChecked())
+        CalculateBeam();
 
     UpdateVisibility();
     UpdateScene();
+    UpdateStatus();
 }
 
 
@@ -51,9 +56,14 @@ void MainWindow::on_VCheckBox_stateChanged()
 
     if(YCheckBox->isChecked())
         CalculateY();
+    if(RCheckBox->isChecked())
+        CalculateR();
+    if(DCheckBox->isChecked())
+        CalculateBeam();
 
     UpdateVisibility();
     UpdateScene();
+    UpdateStatus();
 }
 
 
@@ -69,14 +79,17 @@ void MainWindow::on_H1SpinBox_valueChanged()
 
     if(XCheckBox->isChecked())
         CalculateX();
-    if(DCheckBox->isChecked()){
+    if(RCheckBox->isChecked())
+        CalculateR();
+    if(DCheckBox->isChecked())
         CalculateBeam();
-        UpdateStatus();
-    }
     if(minComboBox->currentIndex()==2) // background = "Average outside cursors"
         CalculateBackground();
 
+    deltaHLabel->setText("Δ = " + QString::number(cursorh2-cursorh1));
+
     UpdateScene();
+    UpdateStatus();
 }
 
 
@@ -92,14 +105,17 @@ void MainWindow::on_H2SpinBox_valueChanged()
 
     if(XCheckBox->isChecked())
         CalculateX();
-    if(DCheckBox->isChecked()){
+    if(RCheckBox->isChecked())
+        CalculateR();
+    if(DCheckBox->isChecked())
         CalculateBeam();
-        UpdateStatus();
-    }
     if(minComboBox->currentIndex()==2) // background = "Average outside cursors"
         CalculateBackground();
 
+    deltaHLabel->setText("Δ = " + QString::number(cursorh2-cursorh1));
+
     UpdateScene();
+    UpdateStatus();
 }
 
 
@@ -115,14 +131,18 @@ void MainWindow::on_V1SpinBox_valueChanged()
 
     if(YCheckBox->isChecked())
         CalculateY();
-    if(DCheckBox->isChecked()){
+    if(RCheckBox->isChecked())
+        CalculateR();
+    if(DCheckBox->isChecked())
         CalculateBeam();
-        UpdateStatus();
-    }
+
     if(minComboBox->currentIndex()==2) // background = "Average outside cursors"
         CalculateBackground();
 
+    deltaVLabel->setText("Δ = " + QString::number(cursorv2-cursorv1));
+
     UpdateScene();
+    UpdateStatus();
 }
 
 
@@ -138,14 +158,18 @@ void MainWindow::on_V2SpinBox_valueChanged()
 
     if(YCheckBox->isChecked())
         CalculateY();
-    if(DCheckBox->isChecked()){
+    if(RCheckBox->isChecked())
+        CalculateR();
+    if(DCheckBox->isChecked())
         CalculateBeam();
-        UpdateStatus();
-    }
+
     if(minComboBox->currentIndex()==2) // background = "Average outside cursors"
         CalculateBackground();
 
+    deltaVLabel->setText("Δ = " + QString::number(cursorv2-cursorv1));
+
     UpdateScene();
+    UpdateStatus();
 }
 
 
@@ -159,14 +183,45 @@ void MainWindow::on_CursorsButton_clicked()
     V1SpinBox->setValue(round(centroidx-sigmax*6));
     V2SpinBox->setValue(round(centroidx+sigmax*6));
 
-    UpdateRanges();
+    UpdateCursors();
 
     CalculateBeam();
     if(XCheckBox->isChecked())
         CalculateX();
     if(YCheckBox->isChecked())
         CalculateY();
+    if(RCheckBox->isChecked())
+        CalculateR();
 
     UpdateScene();
     UpdateStatus();
+}
+
+
+void MainWindow::UpdateCursors()
+{
+    if(!dataloaded)
+        return;
+
+    dataloaded = false; // don't trigger analysis before everything is updated (can crash otherwise)
+    H1SpinBox->setRange(0, dataheight-1);
+    H2SpinBox->setRange(0, dataheight-1);
+    V1SpinBox->setRange(0, datawidth-1);
+    V2SpinBox->setRange(0, datawidth-1);
+    dataloaded = true;
+
+    if(HCheckBox->isChecked()){
+        cursorh1 = H1SpinBox->value();
+        cursorh2 = H2SpinBox->value();
+        h1line->setLine(0.5, cursorh1+0.5, datawidth-0.5, cursorh1+0.5);
+        h2line->setLine(0.5, cursorh2+0.5, datawidth-0.5, cursorh2+0.5);
+        deltaHLabel->setText("Δ = " + QString::number(cursorh2-cursorh1));
+    }
+    if(VCheckBox->isChecked()){
+        cursorv1 = V1SpinBox->value();
+        cursorv2 = V2SpinBox->value();
+        v1line->setLine(cursorv1+0.5, 0.5, cursorv1+0.5, dataheight-0.5);
+        v2line->setLine(cursorv2+0.5, 0.5, cursorv2+0.5, dataheight-0.5);
+        deltaVLabel->setText("Δ = " + QString::number(cursorv2-cursorv1));
+    }
 }

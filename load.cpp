@@ -309,10 +309,9 @@ void MainWindow::LoadData(QString path)
         referenceComboBox->setCurrentIndex(0); // switch to "OFF"
 
     if(refloaded && referenceComboBox->currentIndex()>0)
-        CalculateCorrectedArray(); // this updates ranges too
-    else
-        UpdateRanges();
+        CalculateCorrectedArray();
 
+    UpdateCursors();
     UpdateScale();
     UpdateImage();
     RedoAnalysis();

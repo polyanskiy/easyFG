@@ -117,25 +117,22 @@ void MainWindow::mousePressedOnScene()
 void MainWindow::mouseReleasedOnScene()
 {
     if(h1drag){
-        cursorh1 = scene.y;
         H1SpinBox->setValue(scene.y);
     }
     if(h2drag){
-        cursorh2 = scene.y;
         H2SpinBox->setValue(scene.y);
     }
     if(v1drag){
-        cursorv1 = scene.x;
         V1SpinBox->setValue(scene.x);
     }
     if(v2drag){
-        cursorv2 = scene.x;
         V2SpinBox->setValue(scene.x);
     }
     h1drag=false;
     h2drag=false;
     v1drag=false;
     v2drag=false;
+    UpdateCursors();
 }
 
 
@@ -144,4 +141,11 @@ void MainWindow::mouseLeftScene()
     setCursor(Qt::ArrowCursor);
     inimage = false;
     UpdateStatus();
+}
+
+
+void MainWindow::UpdateScene()
+{
+    scene.setSceneRect(scene.itemsBoundingRect());
+    scene.update(scene.sceneRect());
 }

@@ -49,9 +49,9 @@
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>0</y>
-         <width>214</width>
-         <height>709</height>
+         <y>-150</y>
+         <width>210</width>
+         <height>761</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -150,7 +150,7 @@
          </spacer>
         </item>
         <item row="1" column="0">
-         <widget class="QGroupBox" name="colormapGroupBox">
+         <widget class="QGroupBox" name="imageGroupBox">
           <property name="title">
            <string>Image</string>
           </property>
@@ -260,7 +260,7 @@
            </sizepolicy>
           </property>
           <property name="title">
-           <string>Cursors (Limits)</string>
+           <string>Cursors / Limits</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_8">
            <item row="0" column="0">
@@ -276,14 +276,8 @@
              </property>
             </widget>
            </item>
-           <item row="0" column="2">
-            <widget class="QSpinBox" name="H2SpinBox">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
+           <item row="1" column="0">
+            <widget class="QSpinBox" name="H1SpinBox">
              <property name="toolTip">
               <string>Ctrl+A: whole image</string>
              </property>
@@ -295,34 +289,28 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="1" colspan="2">
-            <widget class="QPushButton" name="CursorsButton">
+           <item row="1" column="1">
+            <widget class="QSpinBox" name="H2SpinBox">
              <property name="toolTip">
-              <string>R</string>
+              <string>Ctrl+A: whole image</string>
              </property>
-             <property name="text">
-              <string>D4σ × 3</string>
+             <property name="accelerated">
+              <bool>true</bool>
              </property>
-             <property name="shortcut">
-              <string>R</string>
+             <property name="singleStep">
+              <number>1</number>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
+           <item row="2" column="0">
             <widget class="QCheckBox" name="VCheckBox">
              <property name="text">
               <string>VERT</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
+           <item row="3" column="0">
             <widget class="QSpinBox" name="V1SpinBox">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
              <property name="toolTip">
               <string>Ctrl+A: whole image</string>
              </property>
@@ -334,14 +322,8 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="2">
+           <item row="3" column="1">
             <widget class="QSpinBox" name="V2SpinBox">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
              <property name="toolTip">
               <string>Ctrl+A: whole image</string>
              </property>
@@ -350,25 +332,39 @@
              </property>
              <property name="singleStep">
               <number>1</number>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0" colspan="2">
+            <widget class="QPushButton" name="CursorsButton">
+             <property name="toolTip">
+              <string>R</string>
+             </property>
+             <property name="text">
+              <string>Auto (3×D4σ)</string>
+             </property>
+             <property name="shortcut">
+              <string>R</string>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QSpinBox" name="H1SpinBox">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
+            <widget class="QLabel" name="deltaHLabel">
+             <property name="enabled">
+              <bool>false</bool>
              </property>
-             <property name="toolTip">
-              <string>Ctrl+A: whole image</string>
+             <property name="text">
+              <string>Δ</string>
              </property>
-             <property name="accelerated">
-              <bool>true</bool>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="deltaVLabel">
+             <property name="enabled">
+              <bool>false</bool>
              </property>
-             <property name="singleStep">
-              <number>1</number>
+             <property name="text">
+              <string>Δ</string>
              </property>
             </widget>
            </item>
@@ -824,12 +820,12 @@
    <slot>setVisible(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>21</x>
-     <y>787</y>
+     <x>26</x>
+     <y>349</y>
     </hint>
     <hint type="destinationlabel">
-     <x>21</x>
-     <y>419</y>
+     <x>54</x>
+     <y>320</y>
     </hint>
    </hints>
   </connection>

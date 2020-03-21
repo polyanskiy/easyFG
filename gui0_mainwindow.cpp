@@ -5,7 +5,7 @@ MainWindow::MainWindow( QWidget * parent) : QMainWindow(parent)
 {
     setupUi(this);
 
-    version = "2020-03-19";
+    version = "2020-03-20";
 
     inimage = false;
     h1drag = false;
@@ -37,6 +37,8 @@ MainWindow::MainWindow( QWidget * parent) : QMainWindow(parent)
     xprojection->setZValue(2);
     yprojection = scene.addPath(QPainterPath(), pen);
     yprojection->setZValue(2);
+    rprojection = scene.addPath(QPainterPath(), pen);
+    rprojection->setZValue(2);
     ellipse = scene.addEllipse(0,0,0,0, pen);
     ellipse->setZValue(2);
     centerAline = scene.addLine(QLineF(), pen);
@@ -133,4 +135,93 @@ void MainWindow::on_hideSidebarButton_clicked()
         hideSidebarButton->setArrowType(Qt::LeftArrow);
     else
         hideSidebarButton->setArrowType(Qt::RightArrow);
+}
+
+
+void MainWindow::UpdateStatus()
+{
+    // WINDOW TITLE
+    if(dataloaded)
+        setWindowTitle("easyFG v." + version +":  " + datafile);
+    else
+        setWindowTitle("easyFG v." + version);
+
+    // STATUIS BAR
+    QString status_string = QString();
+    QTextStream status(&status_string);
+    if(dataloaded){
+        status << datawidth << "x" << dataheight;
+        if(zoom)
+            status << "     ZOOM: " << QString::number(pow(2.0,zoom/2.0),'g',3);
+        if(inimage){
+            status << "     POS: " << scene.x << ";" << scene.y;
+            status << "     VAL: ";
+            if(refloaded && referenceComboBox->currentIndex()>0)
+                status << CorrectedArray[scene.x][scene.y];
+            else
+                status << DataArray[scene.x][scene.y];
+        }
+    }
+
+    if(dataloaded && (DCheckBox->isChecked()||RCheckBox->isChecked())){
+        status << "     CENTR: "
+               << QString::number(centroidx,'f',1) << "x" << QString::number(centroidy,'f',1);
+    }
+
+    if(dataloaded && DCheckBox->isChecked()){
+        status << "     DIA: "
+               << QString::number(sigmax*4,'f',1) << "x" << QString::number(sigmay*4,'f',1);
+    }
+
+    if(refloaded && referenceComboBox->currentIndex()>0)
+        status << "     REF: " << reffile;
+
+    myStatusBar->showMessage(status_string);
+}
+
+
+void MainWindow::UpdateVisibility()
+{
+    h1line->setVisible(HCheckBox->isChecked()&&dataloaded);
+    h2line->setVisible(HCheckBox->isChecked()&&dataloaded);
+    v1line->setVisible(VCheckBox->isChecked()&&dataloaded);
+    v2line->setVisible(VCheckBox->isChecked()&&dataloaded);
+
+    deltaHLabel->setVisible(HCheckBox->isChecked());
+    deltaVLabel->setVisible(VCheckBox->isChecked());
+
+    xprojection->setVisible(XCheckBox->isChecked());
+    yprojection->setVisible(YCheckBox->isChecked());
+    rprojection->setVisible(RCheckBox->isChecked());
+    ellipse->setVisible(DCheckBox->isChecked());
+    centerAline->setVisible(DCheckBox->isChecked() || RCheckBox->isChecked());
+    centerBline->setVisible(DCheckBox->isChecked() || RCheckBox->isChecked());
+
+    imageGroupBox->setEnabled(dataloaded);
+    scaleGroupBox->setEnabled(dataloaded);
+    cursorsGroupBox->setEnabled(dataloaded);
+    analysisGroupBox->setEnabled(dataloaded);
+    referenceGroupBox->setEnabled(dataloaded);
+
+    backButton->setEnabled(dataloaded);
+    forwardButton->setEnabled(dataloaded);
+    saveButton->setEnabled(dataloaded);
+
+    ZoomInButton->setEnabled(zoom < 10);
+    ZoomOutButton->setEnabled(zoom > -10);
+    UnzoomButton->setEnabled(zoom != 0);
+
+    if(!(dataloaded && refloaded))
+        referenceComboBox->setCurrentIndex(0); // reference OFF
+
+    referenceComboBox->setEnabled( refloaded );
+    xshiftLabel->setEnabled (referenceComboBox->isEnabled() && referenceComboBox->currentIndex()>0 );
+    xshiftSpinBox->setEnabled(xshiftLabel->isEnabled());
+    yshiftLabel->setEnabled(xshiftLabel->isEnabled());
+    yshiftSpinBox->setEnabled(xshiftLabel->isEnabled());
+    H1SpinBox->setEnabled(HCheckBox->isChecked());
+    H2SpinBox->setEnabled(HCheckBox->isChecked());
+    V1SpinBox->setEnabled(VCheckBox->isChecked());
+    V2SpinBox->setEnabled(VCheckBox->isChecked());
+    CursorsButton->setEnabled( DCheckBox->isChecked() );
 }

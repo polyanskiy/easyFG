@@ -94,3 +94,34 @@ void MainWindow::SetColorTable()
         scale.setColorTable(colortable);
     }
 }
+
+
+void MainWindow::UpdateImage()
+{
+    if(!dataloaded)
+    return;
+    int i, j;
+    int pixel;
+    float offset = minSpinBox->value();
+    float cutoff = maxSpinBox->value();
+
+    image = QImage(datawidth, dataheight, QImage::Format_Indexed8);
+    SetColorTable();
+
+    for(i=0; i<datawidth; i++){
+        for(j=0; j<dataheight; j++){
+            if(referenceComboBox->currentIndex()>0 && refloaded)
+                pixel = (int)((CorrectedArray[i][j]-offset)*255.0/(cutoff-offset)+0.5);
+            else
+                pixel = (int)((DataArray[i][j]-offset)*255.0/(cutoff-offset)+0.5);
+
+            if(pixel>255)
+                pixel = 255;
+            if(pixel<0)
+                pixel = 0;
+
+            image.setPixel(i, j, pixel);
+        }
+    }
+    pixmap->setPixmap(QPixmap::fromImage(image));
+}

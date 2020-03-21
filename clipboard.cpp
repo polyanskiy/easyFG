@@ -9,8 +9,9 @@ void MainWindow::on_graphicsView_customContextMenuRequested()
 
     QAction *img = new QAction("Copy image [Ctrl+C]", this);
     //QAction *frm = new QAction("Copy frame image", this);
-    QAction *x = new QAction("Copy X data", this);
-    QAction *y = new QAction("Copy Y data", this);
+    QAction *x = new QAction("Copy X projection data", this);
+    QAction *y = new QAction("Copy Y projection data", this);
+    QAction *r = new QAction("Copy R (radial) projection data", this);
     QAction *d = new QAction("Copy beam size data", this);
 
     QMenu menu("");
@@ -20,12 +21,15 @@ void MainWindow::on_graphicsView_customContextMenuRequested()
         menu.addAction(x);
     if(YCheckBox->isChecked())
         menu.addAction(y);
+    if(RCheckBox->isChecked())
+        menu.addAction(r);
     if(DCheckBox->isChecked())
         menu.addAction(d);
 
     connect(img, SIGNAL(triggered()), this, SLOT(CopyImage()));
     connect(x, SIGNAL(triggered()), this, SLOT(CopyX()));
     connect(y, SIGNAL(triggered()), this, SLOT(CopyY()));
+    connect(r, SIGNAL(triggered()), this, SLOT(CopyR()));
     connect(d, SIGNAL(triggered()), this, SLOT(CopyD()));
 
     menu.exec(QCursor::pos());
@@ -68,6 +72,21 @@ void MainWindow::CopyY()
     QString str = QString();
     for(int j=0; j<dataheight; j++)
         str += QString::number(j) + "\t" +  QString::number(Y[j]) + "\n";
+    QApplication::clipboard()->setText(str);
+}
+
+// Copy R (Radial) projection data to clipboard
+void MainWindow::CopyR()
+{
+    if(!dataloaded)
+        return;
+    QString str = QString();
+    int maxpoints = ceil(sqrt(pow(datawidth,2)+pow(dataheight,2)));
+    int k = 0;
+    while(R[k]>-1e37 && k<maxpoints){
+        str += QString::number(k) + "\t" +  QString::number(R[k]) + "\n";
+        k++;
+    }
     QApplication::clipboard()->setText(str);
 }
 

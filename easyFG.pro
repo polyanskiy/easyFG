@@ -4,22 +4,22 @@
 TARGET = easyfg
 TEMPLATE = app
 SOURCES += main.cpp \
-    cursors.cpp \
-    image.cpp \
-mainwindow.cpp \
-reference.cpp \
-scale.cpp \
-scene.cpp \
+    gui0_mainwindow.cpp \
+    gui1_image.cpp \
+    gui2_scale.cpp \
+    gui3_cursors.cpp \
+    gui4_analysis.cpp \
+    gui5_reference.cpp \
+    gui6_scene.cpp \
 load.cpp \
     session.cpp \
-update.cpp \
 shortcuts.cpp \
 memory.cpp \
-analysis.cpp \
 save.cpp \
 clipboard.cpp
 HEADERS += easyfg.h
-FORMS += mainwindow.ui
+FORMS += \
+    mainwindow.ui
 RESOURCES += icon.qrc
 OTHER_FILES += icon.rc
 RC_FILE = icon.rc
