@@ -15,8 +15,10 @@ void MainWindow::RedoAnalysis()
 
     if(RCheckBox->isChecked())
         CalculateR();
-    else
-        rprojection->setPath(QPainterPath());
+    else{
+        rprojection1->setPath(QPainterPath());
+        rprojection2->setPath(QPainterPath());
+    }
 
     if(DCheckBox->isChecked())
         CalculateBeam();
@@ -58,6 +60,10 @@ void MainWindow::on_RCheckBox_stateChanged()
 
     if(RCheckBox->isChecked())
         CalculateR();
+    else{
+        rprojection1->setPath(QPainterPath());
+        rprojection2->setPath(QPainterPath());
+    }
 
     UpdateVisibility();
     UpdateScene();
@@ -114,9 +120,9 @@ void MainWindow::CalculateX()
         if(j<0)
             j=0;
         if(i==0)
-            path.moveTo(i+0.5, j+0.5);
+            path.moveTo(i+0.5, dataheight-(j+0.5));
         else
-            path.lineTo(i+0.5, j+0.5);
+            path.lineTo(i+0.5, dataheight-(j+0.5));
     }
     xprojection->setPath(path);
 }
@@ -257,23 +263,27 @@ void MainWindow::CalculateR()
     centerBline->setLine(centroidx-2.5, centroidy+3.5, centroidx+3.5, centroidy-2.5);
 
     // plot projection curve
-    QPainterPath path;
+    QPainterPath path1, path2;
     k=0;
     //while(npixels[k]>0 && k<maxpoints){
     //while(k<maxpoints){
     while(R[k]>-1e37 && k<maxpoints){
-        float i = k;
+        //float i = k+centroidx;
         float j;
         dataheight<datawidth ? j = R[k]/rmax*dataheight/3 : j = R[k]/rmax*datawidth/3;
-        if(j<0)
-            j=0;
-        if(i==0)
-            path.moveTo(i+0.5, dataheight-(j+0.5));
+        //if(j<0)
+            //j=0;
+        if(k==0)
+            path1.moveTo(centroidx+0.5+k, centroidy-(j+0.5));
         else
-            path.lineTo(i+0.5, dataheight-(j+0.5));
+            path1.lineTo(centroidx+0.5+k, centroidy-(j+0.5));
         k++;
     }
-    rprojection->setPath(path);
+    path2.moveTo(centroidx+0.5, centroidy+0.5);
+    path2.lineTo(centroidx+k+0.5, centroidy+0.5);
+
+    rprojection1->setPath(path1);
+    rprojection2->setPath(path2);
 }
 
 

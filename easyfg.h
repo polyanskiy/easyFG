@@ -58,7 +58,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindowClass
         QGraphicsPixmapItem *pixmap;
         QGraphicsLineItem *h1line, *h2line, *v1line, *v2line, *centerAline, *centerBline;
         QGraphicsEllipseItem *ellipse;
-        QGraphicsPathItem *xprojection, *yprojection, *rprojection;
+        QGraphicsPathItem *xprojection, *yprojection, *rprojection1, *rprojection2;
         QString reffile, savefile;
         bool flag_fullscreen;
         int **DataArray, **RefArray, **CorrectedArray;

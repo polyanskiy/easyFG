@@ -5,7 +5,7 @@ MainWindow::MainWindow( QWidget * parent) : QMainWindow(parent)
 {
     setupUi(this);
 
-    version = "2020-03-20";
+    version = "2020-03-21";
 
     inimage = false;
     h1drag = false;
@@ -37,14 +37,19 @@ MainWindow::MainWindow( QWidget * parent) : QMainWindow(parent)
     xprojection->setZValue(2);
     yprojection = scene.addPath(QPainterPath(), pen);
     yprojection->setZValue(2);
-    rprojection = scene.addPath(QPainterPath(), pen);
-    rprojection->setZValue(2);
+    rprojection1 = scene.addPath(QPainterPath(), pen);
+    rprojection1->setZValue(2);
     ellipse = scene.addEllipse(0,0,0,0, pen);
     ellipse->setZValue(2);
     centerAline = scene.addLine(QLineF(), pen);
     centerAline->setZValue(2);
     centerBline = scene.addLine(QLineF(), pen);
     centerBline->setZValue(2);
+
+    pen.setColor(QColor(0,0,0));
+    pen.setStyle(Qt::DashLine);
+    rprojection2 = scene.addPath(QPainterPath(), pen);
+    rprojection2->setZValue(2);
 
     QObject::connect(&scene, SIGNAL(mouseMoved()), this, SLOT(mouseMovedOnScene()));
     QObject::connect(&scene, SIGNAL(mousePressed()), this, SLOT(mousePressedOnScene()));
@@ -192,7 +197,8 @@ void MainWindow::UpdateVisibility()
 
     xprojection->setVisible(XCheckBox->isChecked());
     yprojection->setVisible(YCheckBox->isChecked());
-    rprojection->setVisible(RCheckBox->isChecked());
+    rprojection1->setVisible(RCheckBox->isChecked());
+    rprojection2->setVisible(RCheckBox->isChecked());
     ellipse->setVisible(DCheckBox->isChecked());
     centerAline->setVisible(DCheckBox->isChecked() || RCheckBox->isChecked());
     centerBline->setVisible(DCheckBox->isChecked() || RCheckBox->isChecked());
