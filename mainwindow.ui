@@ -49,9 +49,9 @@
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-150</y>
+         <y>-339</y>
          <width>210</width>
-         <height>761</height>
+         <height>770</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -263,21 +263,51 @@
            <string>Cursors / Limits</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_8">
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="HCheckBox">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
+           <item row="1" column="0">
+            <widget class="QSpinBox" name="H1SpinBox">
+             <property name="toolTip">
+              <string>Ctrl+A: whole image</string>
              </property>
-             <property name="text">
-              <string>HORIZ</string>
+             <property name="accelerated">
+              <bool>true</bool>
+             </property>
+             <property name="singleStep">
+              <number>1</number>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QSpinBox" name="H1SpinBox">
+           <item row="2" column="1">
+            <widget class="QLabel" name="deltaVLabel">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Δ</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QPushButton" name="ThreeD4sigmaButton">
+             <property name="toolTip">
+              <string>R</string>
+             </property>
+             <property name="text">
+              <string>3×D4σ</string>
+             </property>
+             <property name="shortcut">
+              <string>R</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QCheckBox" name="VCheckBox">
+             <property name="text">
+              <string>VERT</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QSpinBox" name="V1SpinBox">
              <property name="toolTip">
               <string>Ctrl+A: whole image</string>
              </property>
@@ -302,26 +332,6 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QCheckBox" name="VCheckBox">
-             <property name="text">
-              <string>VERT</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QSpinBox" name="V1SpinBox">
-             <property name="toolTip">
-              <string>Ctrl+A: whole image</string>
-             </property>
-             <property name="accelerated">
-              <bool>true</bool>
-             </property>
-             <property name="singleStep">
-              <number>1</number>
-             </property>
-            </widget>
-           </item>
            <item row="3" column="1">
             <widget class="QSpinBox" name="V2SpinBox">
              <property name="toolTip">
@@ -335,16 +345,23 @@
              </property>
             </widget>
            </item>
-           <item row="4" column="0" colspan="2">
-            <widget class="QPushButton" name="CursorsButton">
-             <property name="toolTip">
-              <string>R</string>
+           <item row="5" column="0">
+            <widget class="QPushButton" name="D4sigmaButton">
+             <property name="text">
+              <string>D4σ</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="HCheckBox">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
              <property name="text">
-              <string>Auto (3×D4σ)</string>
-             </property>
-             <property name="shortcut">
-              <string>R</string>
+              <string>HORIZ</string>
              </property>
             </widget>
            </item>
@@ -358,13 +375,10 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
-            <widget class="QLabel" name="deltaVLabel">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="text">
-              <string>Δ</string>
+           <item row="4" column="0" colspan="2">
+            <widget class="Line" name="line">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
              </property>
             </widget>
            </item>

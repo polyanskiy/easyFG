@@ -173,15 +173,52 @@ void MainWindow::on_V2SpinBox_valueChanged()
 }
 
 
-void MainWindow::on_CursorsButton_clicked()
+void MainWindow::on_ThreeD4sigmaButton_clicked()
 {
     if(!dataloaded)
         return;
 
-    H1SpinBox->setValue(round(centroidy-sigmay*6));
-    H2SpinBox->setValue(round(centroidy+sigmay*6));
-    V1SpinBox->setValue(round(centroidx-sigmax*6));
-    V2SpinBox->setValue(round(centroidx+sigmax*6));
+    cursorh1 = round(centroidy-sigmay*6);
+    cursorh2 = round(centroidy+sigmay*6);
+    cursorv1 = round(centroidx-sigmax*6);
+    cursorv2 = round(centroidx+sigmax*6);
+    HCheckBox->setChecked(true);
+    VCheckBox->setChecked(true);
+    H1SpinBox->setValue(cursorh1);
+    H2SpinBox->setValue(cursorh2);
+    V1SpinBox->setValue(cursorv1);
+    V2SpinBox->setValue(cursorv2);
+
+
+    UpdateCursors();
+
+    CalculateBeam();
+    if(XCheckBox->isChecked())
+        CalculateX();
+    if(YCheckBox->isChecked())
+        CalculateY();
+    if(RCheckBox->isChecked())
+        CalculateR();
+
+    UpdateScene();
+    UpdateStatus();
+}
+
+void MainWindow::on_D4sigmaButton_clicked()
+{
+    if(!dataloaded)
+        return;
+
+    cursorh1 = round(centroidy-sigmay*2);
+    cursorh2 = round(centroidy+sigmay*2);
+    cursorv1 = round(centroidx-sigmax*2);
+    cursorv2 = round(centroidx+sigmax*2);
+    HCheckBox->setChecked(true);
+    VCheckBox->setChecked(true);
+    H1SpinBox->setValue(cursorh1);
+    H2SpinBox->setValue(cursorh2);
+    V1SpinBox->setValue(cursorv1);
+    V2SpinBox->setValue(cursorv2);
 
     UpdateCursors();
 

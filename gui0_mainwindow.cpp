@@ -5,7 +5,7 @@ MainWindow::MainWindow( QWidget * parent) : QMainWindow(parent)
 {
     setupUi(this);
 
-    version = "2020-03-21";
+    version = "2020-04-10";
 
     inimage = false;
     h1drag = false;
@@ -229,5 +229,6 @@ void MainWindow::UpdateVisibility()
     H2SpinBox->setEnabled(HCheckBox->isChecked());
     V1SpinBox->setEnabled(VCheckBox->isChecked());
     V2SpinBox->setEnabled(VCheckBox->isChecked());
-    CursorsButton->setEnabled( DCheckBox->isChecked() );
+    D4sigmaButton->setEnabled(DCheckBox->isChecked());
+    ThreeD4sigmaButton->setEnabled(DCheckBox->isChecked());
 }

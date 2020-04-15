@@ -140,7 +140,8 @@ class MainWindow : public QMainWindow, public Ui::MainWindowClass
         void on_VCheckBox_stateChanged();
         void on_V1SpinBox_valueChanged();
         void on_V2SpinBox_valueChanged();
-        void on_CursorsButton_clicked();
+        void on_D4sigmaButton_clicked();
+        void on_ThreeD4sigmaButton_clicked();
 
         // analysis.cpp
         void on_XCheckBox_stateChanged();
