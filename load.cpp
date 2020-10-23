@@ -162,7 +162,8 @@ void MainWindow::LoadTiff(QString filename, int **Array, int *width, int *height
     }
 
     //QMessageBox().information(this, "Image format", QString::number(img.format()));
-    if(img.format()!=QImage::Format_Grayscale8 && img.format()!=QImage::Format_Grayscale16){
+    if(img.format()!=QImage::Format_Grayscale8 && img.format()!=QImage::Format_Grayscale16)
+    {
         QMessageBox().warning(this, "easyFG", "Unsupported TIFF file format");
         return;
     }
@@ -174,11 +175,13 @@ void MainWindow::LoadTiff(QString filename, int **Array, int *width, int *height
 
     uchar* line;
     int i, j;
-    for(j=0; j<*height; j++) {
+    for(j=0; j<*height; j++)
+    {
         line = img.scanLine(j);
-        for(i=0; i<*width; i++){
+        for(i=0; i<*width; i++)
+        {
             if(img.format()==QImage::Format_Grayscale8) // 8-bit greyscale
-                Array[i][j] = ((int8_t*)line)[i];
+                Array[i][j] = ((uint8_t*)line)[i];
             else //16-bit greyscale
                 Array[i][j] = ((uint16_t*)line)[i];
         }
@@ -206,8 +209,10 @@ void MainWindow::LoadRaw(QString filename, int **Array, int *width, int *height)
 
     // read data
     int16_t tmp;
-    for(j=0; j<*height; j++) {
-        for(i=0; i<*width; i++){
+    for(j=0; j<*height; j++)
+    {
+        for(i=0; i<*width; i++)
+        {
             dstream >> tmp;
             Array[i][j] = (int)tmp;
         }
@@ -237,7 +242,8 @@ void MainWindow::LoadBgdata(QString filename, int **Array, int *width, int *heig
     // read dataset
     H5LTread_dataset_int(file,"/BG_DATA/1/DATA",data);
 
-    for(j=0; j<*height; j++) {
+    for(j=0; j<*height; j++)
+    {
         for(i=0; i<*width; i++)
             Array[i][j] = data[i+(*width)*j] >> 16; // shift 16 bit to the right
     }

@@ -15,6 +15,7 @@ void MainWindow::SaveSession()
     settings.setValue("max_type", maxComboBox->currentIndex());
     settings.setValue("pseudocolor", pseudocolorCheckBox->checkState());
     settings.setValue("inverted", invertedCheckBox->checkState());
+    settings.setValue("logarithmic", logarithmicCheckBox->checkState());
     settings.setValue("zoom", zoom);
     settings.setValue("H", HCheckBox->checkState());
     settings.setValue("H1", H1SpinBox->value());
@@ -69,6 +70,7 @@ void MainWindow::RestoreSession()
 
     pseudocolorCheckBox->setCheckState((Qt::CheckState)settings.value("pseudocolor", 0).toInt());
     invertedCheckBox->setCheckState((Qt::CheckState)settings.value("inverted", 0).toInt());
+    logarithmicCheckBox->setCheckState((Qt::CheckState)settings.value("logarithmic", 0).toInt());
     zoom = settings.value("zoom", 0).toInt();
     minSpinBox->setValue(settings.value("min", 0).toFloat());
     minComboBox->setCurrentIndex(settings.value("min_type", 0).toInt());

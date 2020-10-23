@@ -6,7 +6,7 @@
 
 ;General
 Name "easyFG"
-OutFile "easyFG_20200923.exe"
+OutFile "easyFG_20201023.exe"
 
 ;Default install path
 InstallDir "$PROGRAMFILES64\easyFG"          ;default

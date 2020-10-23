@@ -123,6 +123,7 @@ class MainWindow : public QMainWindow, public Ui::MainWindowClass
         // image.cpp
         void on_pseudocolorCheckBox_stateChanged();
         void on_invertedCheckBox_stateChanged();
+        void on_logarithmicCheckBox_stateChanged();
         void on_ZoomInButton_clicked();
         void on_ZoomOutButton_clicked();
         void on_UnzoomButton_clicked();

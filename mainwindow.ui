@@ -49,9 +49,9 @@
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>-339</y>
-         <width>210</width>
-         <height>770</height>
+         <y>0</y>
+         <width>200</width>
+         <height>726</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -155,7 +155,7 @@
            <string>Image</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_2">
-           <item row="1" column="0" colspan="2">
+           <item row="2" column="0" colspan="2">
             <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
               <widget class="QPushButton" name="ZoomInButton">
@@ -245,6 +245,13 @@
              </property>
              <property name="shortcut">
               <string>I</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QCheckBox" name="logarithmicCheckBox">
+             <property name="text">
+              <string>Logarithmic (image only!)</string>
              </property>
             </widget>
            </item>

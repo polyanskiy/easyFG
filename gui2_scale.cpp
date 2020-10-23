@@ -164,6 +164,27 @@ void MainWindow::UpdateScale()
             break;
     }
 
+    // Update scale image
+    scale = QImage(20, 256, QImage::Format_Indexed8);
+    SetColorTable();
+
+    float fl_pixel;
+    int pixel;
+    for(int j=0; j<=255; j++)
+    {
+        if(logarithmicCheckBox->isChecked())
+        {
+            fl_pixel = (j==255 ? 0 : log(255-j)/log(255.0)*255.0);
+            pixel = (int)(fl_pixel+0.5);// float -> integer
+        }
+        else
+            pixel = 255-j;
+
+        for(int i=0; i<20; i++)
+            scale.setPixel(i, j, pixel);
+    }
+    scaleLabel->setPixmap(QPixmap::fromImage(scale));
+
     minSpinBox->blockSignals(false);
     maxSpinBox->blockSignals(false);
 }

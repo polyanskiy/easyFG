@@ -5,7 +5,7 @@
 void MainWindow::on_ZoomOutButton_clicked(){
     if(zoom == -10)
         return;
-    graphicsView->scale(pow(2, -0.5*zoom), pow(2, -0.5*zoom)); // unzoom
+    graphicsView->resetTransform(); // unzoom
     zoom--;
     graphicsView->scale(pow(2, 0.5*zoom), pow(2, 0.5*zoom));   // zoom
     UpdateStatus();
@@ -16,7 +16,7 @@ void MainWindow::on_ZoomOutButton_clicked(){
 void MainWindow::on_ZoomInButton_clicked(){
     if(zoom == 10)
         return;
-    graphicsView->scale(pow(2, -0.5*zoom), pow(2, -0.5*zoom)); // unzoom
+    graphicsView->resetTransform(); // unzoom
     zoom++;
     graphicsView->scale(pow(2, 0.5*zoom), pow(2, 0.5*zoom));   // zoom
     UpdateStatus();
@@ -27,7 +27,7 @@ void MainWindow::on_ZoomInButton_clicked(){
 void MainWindow::on_UnzoomButton_clicked(){
     if(zoom == 0)
         return;
-    graphicsView->scale(pow(2,-0.5*zoom), pow(2,-0.5*zoom)); // unzoom
+    graphicsView->resetTransform(); // unzoom
     zoom = 0;
     UpdateStatus();
     UpdateVisibility();
@@ -52,6 +52,16 @@ void MainWindow::on_invertedCheckBox_stateChanged()
         pixmap->setPixmap(QPixmap::fromImage(image));
         scene.update(scene.sceneRect());
         scaleLabel->setPixmap(QPixmap::fromImage(scale));
+    }
+}
+
+
+void MainWindow::on_logarithmicCheckBox_stateChanged()
+{
+    if(dataloaded){
+        UpdateImage();
+        UpdateScale();
+        scene.update(scene.sceneRect());
     }
 }
 
@@ -102,6 +112,7 @@ void MainWindow::UpdateImage()
     return;
     int i, j;
     int pixel;
+    float fl_pixel;
     float offset = minSpinBox->value();
     float cutoff = maxSpinBox->value();
 
@@ -111,9 +122,17 @@ void MainWindow::UpdateImage()
     for(i=0; i<datawidth; i++){
         for(j=0; j<dataheight; j++){
             if(referenceComboBox->currentIndex()>0 && refloaded)
-                pixel = (int)((CorrectedArray[i][j]-offset)*255.0/(cutoff-offset)+0.5);
+                //pixel = (int)((CorrectedArray[i][j]-offset)*255.0/(cutoff-offset)+0.5);
+                fl_pixel = (CorrectedArray[i][j]-offset)*255.0/(cutoff-offset);
             else
-                pixel = (int)((DataArray[i][j]-offset)*255.0/(cutoff-offset)+0.5);
+                //pixel = (int)((DataArray[i][j]-offset)*255.0/(cutoff-offset)+0.5);
+                fl_pixel = (DataArray[i][j]-offset)*255.0/(cutoff-offset);
+
+            // Logarithmic scale
+            if(logarithmicCheckBox->isChecked())
+                fl_pixel = (fl_pixel<=0 ? 0 : log(fl_pixel)/log(255.0)*255.0);;
+
+            pixel = (int)(fl_pixel+0.5); // float -> integer
 
             if(pixel>255)
                 pixel = 255;

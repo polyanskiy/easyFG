@@ -5,7 +5,7 @@ MainWindow::MainWindow( QWidget * parent) : QMainWindow(parent)
 {
     setupUi(this);
 
-    version = "2020-09-23";
+    version = "2020-10-23";
 
     inimage = false;
     h1drag = false;
@@ -75,15 +75,7 @@ MainWindow::MainWindow( QWidget * parent) : QMainWindow(parent)
     LoadRef(reffile);
     LoadData(datafile);
 
-    // Scale image
-    scale = QImage(20, 256, QImage::Format_Indexed8);
-    SetColorTable();
-    for(int i=0; i<20; i++)
-	for(int j=0; j<=255; j++)
-	    scale.setPixel(i, j, 255-j);
-    scaleLabel->setPixmap(QPixmap::fromImage(scale));
-
-    graphicsView->scale(pow(2,zoom/2), pow(2,zoom/2));
+    graphicsView->scale(pow(2,0.5*zoom), pow(2,0.5*zoom));
 
     InitializeShortcuts();
     UpdateVisibility();
