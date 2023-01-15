@@ -5,7 +5,7 @@ MainWindow::MainWindow( QWidget * parent) : QMainWindow(parent)
 {
     setupUi(this);
 
-    version = "2020-10-23";
+    version = "2023-01-14";
 
     inimage = false;
     h1drag = false;

@@ -4,9 +4,11 @@
 *.autosave
 *.pro.user*
 Makefile*
+debug
+release
+.qtc_clangd
 *.Debug
 *.Release
-moc_*
 moc_*
 qrc_*
 ui_*

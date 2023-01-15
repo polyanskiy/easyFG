@@ -11,7 +11,7 @@ MyScene::MyScene()
 bool MyScene::event(QEvent* event)
 {
     switch(event->type()){
-        case QEvent::Leave:
+        case QEvent::GraphicsSceneLeave:
             emit mouseLeft();
             break;
         case QEvent::GraphicsSceneMouseMove:
