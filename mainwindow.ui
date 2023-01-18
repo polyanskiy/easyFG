@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>522</width>
-    <height>381</height>
+    <width>491</width>
+    <height>362</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -40,10 +40,159 @@
     <property name="bottomMargin">
      <number>0</number>
     </property>
+    <item row="0" column="1">
+     <layout class="QGridLayout" name="gridLayout_5">
+      <property name="topMargin">
+       <number>6</number>
+      </property>
+      <item row="0" column="0" rowspan="2">
+       <widget class="QToolButton" name="backButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string notr="true">Previous frame (Left)</string>
+        </property>
+        <property name="text">
+         <string>&lt;</string>
+        </property>
+        <property name="arrowType">
+         <enum>Qt::LeftArrow</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="openButton">
+        <property name="toolTip">
+         <string>Ctrl+O</string>
+        </property>
+        <property name="text">
+         <string>Open...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" rowspan="2">
+       <widget class="QToolButton" name="forwardButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip">
+         <string notr="true">Next frame (Right)</string>
+        </property>
+        <property name="text">
+         <string>&gt;</string>
+        </property>
+        <property name="arrowType">
+         <enum>Qt::RightArrow</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="saveButton">
+        <property name="toolTip">
+         <string notr="true">Ctrl+S</string>
+        </property>
+        <property name="text">
+         <string>Save...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="0">
+     <widget class="QToolButton" name="hideSidebarButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>18</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>18</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string>F10 (F11 for fullscreen)</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="arrowType">
+       <enum>Qt::LeftArrow</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" rowspan="2">
+     <widget class="QLabel" name="scaleLabel">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+        <horstretch>18</horstretch>
+        <verstretch>10</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>18</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>18</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::CustomContextMenu</enum>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>[*]</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2" rowspan="3">
+     <widget class="QGraphicsView" name="graphicsView">
+      <property name="mouseTracking">
+       <bool>true</bool>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="sizeAdjustPolicy">
+       <enum>QAbstractScrollArea::AdjustToContents</enum>
+      </property>
+      <property name="interactive">
+       <bool>true</bool>
+      </property>
+      <property name="viewportUpdateMode">
+       <enum>QGraphicsView::FullViewportUpdate</enum>
+      </property>
+     </widget>
+    </item>
     <item row="1" column="1" rowspan="2">
      <widget class="QScrollArea" name="Sidebar">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
@@ -62,23 +211,122 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>210</width>
-         <height>786</height>
+         <width>207</width>
+         <height>773</height>
         </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-         <horstretch>0</horstretch>
-         <verstretch>1</verstretch>
-        </sizepolicy>
        </property>
        <layout class="QGridLayout" name="gridLayout_6">
         <property name="leftMargin">
          <number>0</number>
         </property>
+        <property name="rightMargin">
+         <number>0</number>
+        </property>
         <property name="bottomMargin">
          <number>0</number>
         </property>
+        <item row="5" column="0">
+         <widget class="QGroupBox" name="referenceGroupBox">
+          <property name="title">
+           <string>Reference</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="3" column="1">
+            <widget class="QSpinBox" name="yshiftSpinBox">
+             <property name="accelerated">
+              <bool>true</bool>
+             </property>
+             <property name="minimum">
+              <number>-10000</number>
+             </property>
+             <property name="maximum">
+              <number>10000</number>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="xshiftLabel">
+             <property name="text">
+              <string>X shift</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="2">
+            <widget class="QComboBox" name="referenceComboBox">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string/>
+             </property>
+             <item>
+              <property name="text">
+               <string>OFF</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Subtract (data-ref)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Divide (data/ref*const)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Show reference</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QPushButton" name="currentButton">
+             <property name="toolTip">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>Use current</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="referenceButton">
+             <property name="toolTip">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>Load...</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="yshiftLabel">
+             <property name="text">
+              <string>Y shift</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QSpinBox" name="xshiftSpinBox">
+             <property name="accelerated">
+              <bool>true</bool>
+             </property>
+             <property name="minimum">
+              <number>-10000</number>
+             </property>
+             <property name="maximum">
+              <number>10000</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
         <item row="1" column="0">
          <widget class="QGroupBox" name="imageGroupBox">
           <property name="title">
@@ -93,7 +341,7 @@
              <item>
               <widget class="QPushButton" name="ZoomInButton">
                <property name="toolTip">
-                <string>Ctrl ++</string>
+                <string>Ctrl+Plus</string>
                </property>
                <property name="text">
                 <string/>
@@ -113,7 +361,7 @@
              <item>
               <widget class="QPushButton" name="ZoomOutButton">
                <property name="toolTip">
-                <string>Ctrl +-</string>
+                <string>Ctrl+Minus</string>
                </property>
                <property name="text">
                 <string/>
@@ -163,26 +411,23 @@
              <property name="text">
               <string>Pseudocolor</string>
              </property>
-             <property name="shortcut">
-              <string>P</string>
-             </property>
             </widget>
            </item>
            <item row="0" column="1">
             <widget class="QCheckBox" name="invertedCheckBox">
              <property name="toolTip">
-              <string>i</string>
+              <string>I</string>
              </property>
              <property name="text">
               <string>Inverted</string>
-             </property>
-             <property name="shortcut">
-              <string>I</string>
              </property>
             </widget>
            </item>
            <item row="1" column="0" colspan="2">
             <widget class="QCheckBox" name="logarithmicCheckBox">
+             <property name="toolTip">
+              <string>L</string>
+             </property>
              <property name="text">
               <string>Logarithmic (image only!)</string>
              </property>
@@ -191,134 +436,72 @@
           </layout>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="QGroupBox" name="cursorsGroupBox">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
+        <item row="4" column="0">
+         <widget class="QGroupBox" name="analysisGroupBox">
           <property name="title">
-           <string>Cursors / Limits</string>
+           <string>Analysis</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_8">
-           <item row="1" column="0">
-            <widget class="QSpinBox" name="H1SpinBox">
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="8" column="2" colspan="2">
+            <widget class="QCheckBox" name="DCheckBox">
              <property name="toolTip">
-              <string>Ctrl+A: whole image</string>
+              <string>D</string>
              </property>
-             <property name="accelerated">
-              <bool>true</bool>
-             </property>
-             <property name="singleStep">
-              <number>1</number>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLabel" name="deltaVLabel">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="text">
-              <string>Δ</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="1">
-            <widget class="QPushButton" name="ThreeD4sigmaButton">
-             <property name="toolTip">
-              <string>R</string>
-             </property>
-             <property name="text">
-              <string>3×D4σ</string>
-             </property>
-             <property name="shortcut">
-              <string>R</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QCheckBox" name="VCheckBox">
-             <property name="text">
-              <string>VERT</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QSpinBox" name="V1SpinBox">
-             <property name="toolTip">
-              <string>Ctrl+A: whole image</string>
-             </property>
-             <property name="accelerated">
-              <bool>true</bool>
-             </property>
-             <property name="singleStep">
-              <number>1</number>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QSpinBox" name="H2SpinBox">
-             <property name="toolTip">
-              <string>Ctrl+A: whole image</string>
-             </property>
-             <property name="accelerated">
-              <bool>true</bool>
-             </property>
-             <property name="singleStep">
-              <number>1</number>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QSpinBox" name="V2SpinBox">
-             <property name="toolTip">
-              <string>Ctrl+A: whole image</string>
-             </property>
-             <property name="accelerated">
-              <bool>true</bool>
-             </property>
-             <property name="singleStep">
-              <number>1</number>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QPushButton" name="D4sigmaButton">
              <property name="text">
               <string>D4σ</string>
              </property>
+             <property name="shortcut">
+              <string>Ctrl+S, Ctrl+R</string>
+             </property>
             </widget>
            </item>
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="HCheckBox">
+           <item row="0" column="4">
+            <widget class="QCheckBox" name="RCheckBox">
+             <property name="toolTip">
+              <string>R</string>
+             </property>
+             <property name="text">
+              <string>R</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QCheckBox" name="XCheckBox">
+             <property name="toolTip">
+              <string>X</string>
+             </property>
+             <property name="text">
+              <string>X</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QLabel" name="beamLabel">
+             <property name="text">
+              <string>Beam</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QCheckBox" name="YCheckBox">
+             <property name="toolTip">
+              <string>Y</string>
+             </property>
+             <property name="text">
+              <string>Y</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="2">
+            <widget class="QLabel" name="projectionsLabel">
              <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
              <property name="text">
-              <string>HORIZ</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="deltaHLabel">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="text">
-              <string>Δ</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0" colspan="2">
-            <widget class="Line" name="line">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+              <string>Projections</string>
              </property>
             </widget>
            </item>
@@ -474,34 +657,109 @@
           </layout>
          </widget>
         </item>
-        <item row="5" column="0">
-         <widget class="QGroupBox" name="referenceGroupBox">
-          <property name="title">
-           <string>Reference</string>
+        <item row="3" column="0">
+         <widget class="QGroupBox" name="cursorsGroupBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
-          <layout class="QGridLayout" name="gridLayout">
-           <item row="3" column="1">
-            <widget class="QSpinBox" name="yshiftSpinBox">
+          <property name="title">
+           <string>Cursors / Limits</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_8">
+           <item row="1" column="0">
+            <widget class="QSpinBox" name="H1SpinBox">
+             <property name="toolTip">
+              <string>Ctrl+A: whole image</string>
+             </property>
              <property name="accelerated">
               <bool>true</bool>
              </property>
-             <property name="minimum">
-              <number>-10000</number>
+             <property name="singleStep">
+              <number>1</number>
              </property>
-             <property name="maximum">
-              <number>10000</number>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="deltaVLabel">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="text">
+              <string>Δ</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QPushButton" name="ThreeD4sigmaButton">
+             <property name="toolTip">
+              <string>R</string>
+             </property>
+             <property name="text">
+              <string>3×D4σ</string>
              </property>
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QLabel" name="xshiftLabel">
+            <widget class="QCheckBox" name="VCheckBox">
+             <property name="toolTip">
+              <string>V</string>
+             </property>
              <property name="text">
-              <string>X shift</string>
+              <string>VERT</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="0" colspan="2">
-            <widget class="QComboBox" name="referenceComboBox">
+           <item row="3" column="0">
+            <widget class="QSpinBox" name="V1SpinBox">
+             <property name="toolTip">
+              <string>Ctrl+A: whole image</string>
+             </property>
+             <property name="accelerated">
+              <bool>true</bool>
+             </property>
+             <property name="singleStep">
+              <number>1</number>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QSpinBox" name="H2SpinBox">
+             <property name="toolTip">
+              <string>Ctrl+A: whole image</string>
+             </property>
+             <property name="accelerated">
+              <bool>true</bool>
+             </property>
+             <property name="singleStep">
+              <number>1</number>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QSpinBox" name="V2SpinBox">
+             <property name="toolTip">
+              <string>Ctrl+A: whole image</string>
+             </property>
+             <property name="accelerated">
+              <bool>true</bool>
+             </property>
+             <property name="singleStep">
+              <number>1</number>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QPushButton" name="D4sigmaButton">
+             <property name="text">
+              <string>D4σ</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="HCheckBox">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -509,142 +767,27 @@
               </sizepolicy>
              </property>
              <property name="toolTip">
-              <string/>
-             </property>
-             <item>
-              <property name="text">
-               <string>OFF</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Subtract (data-ref)</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Divide (data/ref*const)</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Show reference</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QPushButton" name="currentButton">
-             <property name="toolTip">
-              <string notr="true"/>
+              <string>H</string>
              </property>
              <property name="text">
-              <string>Use current</string>
+              <string>HORIZ</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="referenceButton">
-             <property name="toolTip">
-              <string notr="true"/>
+           <item row="0" column="1">
+            <widget class="QLabel" name="deltaHLabel">
+             <property name="enabled">
+              <bool>false</bool>
              </property>
              <property name="text">
-              <string>Load...</string>
+              <string>Δ</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="yshiftLabel">
-             <property name="text">
-              <string>Y shift</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QSpinBox" name="xshiftSpinBox">
-             <property name="accelerated">
-              <bool>true</bool>
-             </property>
-             <property name="minimum">
-              <number>-10000</number>
-             </property>
-             <property name="maximum">
-              <number>10000</number>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QGroupBox" name="analysisGroupBox">
-          <property name="title">
-           <string>Analysis</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout_4">
-           <item row="8" column="2" colspan="2">
-            <widget class="QCheckBox" name="DCheckBox">
-             <property name="toolTip">
-              <string>D</string>
-             </property>
-             <property name="text">
-              <string>D4σ</string>
-             </property>
-             <property name="shortcut">
-              <string>D</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="4">
-            <widget class="QCheckBox" name="RCheckBox">
-             <property name="text">
-              <string>R</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QCheckBox" name="XCheckBox">
-             <property name="toolTip">
-              <string>X</string>
-             </property>
-             <property name="text">
-              <string>X</string>
-             </property>
-             <property name="shortcut">
-              <string>X</string>
-             </property>
-            </widget>
-           </item>
-           <item row="8" column="0">
-            <widget class="QLabel" name="beamLabel">
-             <property name="text">
-              <string>Beam</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="3">
-            <widget class="QCheckBox" name="YCheckBox">
-             <property name="toolTip">
-              <string>Y</string>
-             </property>
-             <property name="text">
-              <string>Y</string>
-             </property>
-             <property name="shortcut">
-              <string>Y</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0" colspan="2">
-            <widget class="QLabel" name="projectionsLabel">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Projections</string>
+           <item row="4" column="0" colspan="2">
+            <widget class="Line" name="line">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
              </property>
             </widget>
            </item>
@@ -658,190 +801,14 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>166</width>
-            <height>13</height>
+            <width>198</width>
+            <height>10</height>
            </size>
           </property>
          </spacer>
         </item>
        </layout>
       </widget>
-     </widget>
-    </item>
-    <item row="0" column="2" rowspan="3">
-     <widget class="QGraphicsView" name="graphicsView">
-      <property name="mouseTracking">
-       <bool>true</bool>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAsNeeded</enum>
-      </property>
-      <property name="horizontalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOff</enum>
-      </property>
-      <property name="sizeAdjustPolicy">
-       <enum>QAbstractScrollArea::AdjustToContents</enum>
-      </property>
-      <property name="interactive">
-       <bool>true</bool>
-      </property>
-      <property name="viewportUpdateMode">
-       <enum>QGraphicsView::FullViewportUpdate</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <layout class="QGridLayout" name="gridLayout_5">
-      <property name="topMargin">
-       <number>6</number>
-      </property>
-      <item row="0" column="0" rowspan="2">
-       <widget class="QToolButton" name="backButton">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string notr="true">Previous frame</string>
-        </property>
-        <property name="text">
-         <string>&lt;</string>
-        </property>
-        <property name="shortcut">
-         <string>Left</string>
-        </property>
-        <property name="arrowType">
-         <enum>Qt::LeftArrow</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="openButton">
-        <property name="toolTip">
-         <string>Ctrl+O</string>
-        </property>
-        <property name="text">
-         <string>Open...</string>
-        </property>
-        <property name="shortcut">
-         <string>Ctrl+O</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2" rowspan="2">
-       <widget class="QToolButton" name="forwardButton">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="toolTip">
-         <string notr="true">Next frame</string>
-        </property>
-        <property name="text">
-         <string>&gt;</string>
-        </property>
-        <property name="shortcut">
-         <string>Right</string>
-        </property>
-        <property name="arrowType">
-         <enum>Qt::RightArrow</enum>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QPushButton" name="saveButton">
-        <property name="toolTip">
-         <string notr="true">Ctrl+S</string>
-        </property>
-        <property name="text">
-         <string>Save...</string>
-        </property>
-        <property name="shortcut">
-         <string>Ctrl+S</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="0" column="0" rowspan="2">
-     <widget class="QLabel" name="scaleLabel">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-        <horstretch>18</horstretch>
-        <verstretch>10</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>18</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>18</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="contextMenuPolicy">
-       <enum>Qt::CustomContextMenu</enum>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="text">
-       <string>[*]</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QToolButton" name="hideSidebarButton">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>18</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>18</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="toolTip">
-       <string>F10 (F11 for fullscreen)</string>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="shortcut">
-       <string>F10</string>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-      <property name="arrowType">
-       <enum>Qt::LeftArrow</enum>
-      </property>
      </widget>
     </item>
    </layout>
@@ -872,88 +839,7 @@
  <resources>
   <include location="icon.qrc"/>
  </resources>
- <connections>
-  <connection>
-   <sender>hideSidebarButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>Sidebar</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>17</x>
-     <y>358</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>54</x>
-     <y>320</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>hideSidebarButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>openButton</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>17</x>
-     <y>338</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>141</x>
-     <y>53</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>hideSidebarButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>saveButton</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>17</x>
-     <y>338</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>141</x>
-     <y>115</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>hideSidebarButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>forwardButton</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>17</x>
-     <y>338</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>236</x>
-     <y>84</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>hideSidebarButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>backButton</receiver>
-   <slot>setVisible(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>17</x>
-     <y>338</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>45</x>
-     <y>84</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <slot>open_file()</slot>
  </slots>

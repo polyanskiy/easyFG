@@ -5,7 +5,7 @@ MainWindow::MainWindow( QWidget * parent) : QMainWindow(parent)
 {
     setupUi(this);
 
-    version = "2023-01-14";
+    version = "2023-01-17";
 
     inimage = false;
     h1drag = false;
@@ -128,10 +128,24 @@ void MainWindow::on_backButton_clicked()
 
 void MainWindow::on_hideSidebarButton_clicked()
 {
-    if(hideSidebarButton->isChecked())
-        hideSidebarButton->setArrowType(Qt::LeftArrow);
-    else
+    if(Sidebar->isVisible())
+    {
         hideSidebarButton->setArrowType(Qt::RightArrow);
+        Sidebar->setVisible(false);
+        openButton->setVisible(false);
+        saveButton->setVisible(false);
+        forwardButton->setVisible(false);
+        backButton->setVisible(false);
+    }
+    else
+    {
+        hideSidebarButton->setArrowType(Qt::LeftArrow);
+        Sidebar->setVisible(true);
+        openButton->setVisible(true);
+        saveButton->setVisible(true);
+        forwardButton->setVisible(true);
+        backButton->setVisible(true);
+    }
 }
 
 

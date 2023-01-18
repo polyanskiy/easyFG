@@ -167,6 +167,19 @@ class MainWindow : public QMainWindow, public Ui::MainWindowClass
         void Shortcut_F11();
         void Shortcut_ESC();
 
+        void Shortcut_I();
+        void Shortcut_P();
+        void Shortcut_L();
+
+        void Shortcut_H();
+        void Shortcut_V();
+
+        void Shortcut_X();
+        void Shortcut_Y();
+        void Shortcut_R();
+        void Shortcut_D();
+
+
         // clipboard.cpp
         void on_graphicsView_customContextMenuRequested();
         void on_scaleLabel_customContextMenuRequested();void CopyImage();
