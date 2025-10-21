@@ -6,7 +6,7 @@
 
 ;General
 Name "easyFG"
-OutFile "easyFG_20230118.exe"
+OutFile "easyFG_20251020.exe"
 
 ;Default install path
 InstallDir "$PROGRAMFILES64\easyFG"          ;default
@@ -55,23 +55,23 @@ Section "Section_01" Sec01
   ;easyFG
   File "release\easyfg.exe"
   ;QT
-  File "C:\Qt\6.4.2\mingw_64\bin\Qt6Core.dll"
-  File "C:\Qt\6.4.2\mingw_64\bin\Qt6Gui.dll"
-  File "C:\Qt\6.4.2\mingw_64\bin\Qt6Widgets.dll"
+  File "C:\Qt\6.8.0\mingw_64\bin\Qt6Core.dll"
+  File "C:\Qt\6.8.0\mingw_64\bin\Qt6Gui.dll"
+  File "C:\Qt\6.8.0\mingw_64\bin\Qt6Widgets.dll"
   ;MinGW
-  File "C:\Qt\Tools\mingw1120_64\bin\libgcc_s_seh-1.dll"
-  File "C:\Qt\Tools\mingw1120_64\bin\libstdc++-6.dll"
-  File "C:\Qt\Tools\mingw1120_64\bin\libwinpthread-1.dll"
+  File "C:\Qt\Tools\mingw1310_64\bin\libgcc_s_seh-1.dll"
+  File "C:\Qt\Tools\mingw1310_64\bin\libstdc++-6.dll"
+  File "C:\Qt\Tools\mingw1310_64\bin\libwinpthread-1.dll"
   ;HDF5
-  File "C:\Program Files\HDF_Group\HDF5\1.14.0\bin\hdf5.dll"
-  File "C:\Program Files\HDF_Group\HDF5\1.14.0\bin\hdf5_hl.dll"
+  File "C:\Program Files\HDF_Group\HDF5\1.14.5\bin\hdf5.dll"
+  File "C:\Program Files\HDF_Group\HDF5\1.14.5\bin\hdf5_hl.dll"
   
   SetOutPath "$INSTDIR\platforms"
-  File "C:\Qt\6.4.2\mingw_64\plugins\platforms\qwindows.dll"  
+  File "C:\Qt\6.8.0\mingw_64\plugins\platforms\qwindows.dll"  
   
   SetOutPath "$INSTDIR\imageformats"
-  File "C:\Qt\6.4.2\mingw_64\plugins\imageformats\qjpeg.dll"
-  File "C:\Qt\6.4.2\mingw_64\plugins\imageformats\qtiff.dll"
+  File "C:\Qt\6.8.0\mingw_64\plugins\imageformats\qjpeg.dll"
+  File "C:\Qt\6.8.0\mingw_64\plugins\imageformats\qtiff.dll"
   
   SetOutPath "$INSTDIR\src"
   File "easyfg.h"

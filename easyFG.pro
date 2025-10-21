@@ -27,7 +27,7 @@ CONFIG += qt
 QT += widgets
 
 win32 {
-INCLUDEPATH += "C:\\Program Files\\HDF_Group\\HDF5\\1.14.0\\include"
-LIBS += "C:\\Program Files\\HDF_Group\\HDF5\\1.14.0\\lib\\hdf5.lib"
-LIBS += "C:\\Program Files\\HDF_Group\\HDF5\\1.14.0\\lib\\hdf5_hl.lib"
+INCLUDEPATH += "C:\\Program Files\\HDF_Group\\HDF5\\1.14.5\\include"
+LIBS += "C:\\Program Files\\HDF_Group\\HDF5\\1.14.5\\lib\\hdf5.lib"
+LIBS += "C:\\Program Files\\HDF_Group\\HDF5\\1.14.5\\lib\\hdf5_hl.lib"
 }

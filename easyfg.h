@@ -19,8 +19,8 @@
 #include "hdf5_hl.h"
 #include "ui_mainwindow.h"
 
-#define MAX_WIDTH 2048
-#define MAX_HEIGHT 2048
+#define MAX_WIDTH 16384
+#define MAX_HEIGHT 16384
 //#define MAX_R 2897 // sqrt(2048^2+2048^2)
 
 
